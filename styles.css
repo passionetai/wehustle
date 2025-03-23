@@ -30,10 +30,11 @@
   header {
     text-align: center;
     padding: 2rem 1rem;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(135deg, #2e7d32 40%, #f57c00);
     color: white;
     box-shadow: 0 2px 15px rgba(0,0,0,0.1);
-  }
+    border-radius: 50px;
+}
   
   h1 {
     font-family: 'Quicksand', sans-serif;
@@ -51,16 +52,53 @@
   }
   
   /* Input and Buttons */
+  #search-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      margin: 2rem auto;
+      max-width: 400px;
+  }
+  
+  #city-input {
+      margin: 0;  /* Override previous margin */
+  }
+  
   #city-input {
     width: 100%;
-    max-width: 400px;
-    padding: 1rem;
+    max-width: 420px;  /* Increased from 400px */
+    padding: 1rem 1rem 1rem 3rem;  /* Added left padding for icon */
     border: 2px solid #ddd;
     border-radius: 50px;
     font-size: 1.1rem;
-    transition: var(--transition);
+    font-family: 'Nunito', sans-serif;  /* Smooth round font */
+    transition: all 0.3s ease;
     margin: 1rem 0;
-  }
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    /* Check the background image URL in your CSS */
+    #city-input {
+        /* ... */
+        background: white url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 24 24" fill="%23999"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>') no-repeat 16px center;
+    }
+}
+
+#city-input:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transform: translateY(-1px);
+}
+
+#city-input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.2);
+    transform: translateY(-2px);
+}
+
+#city-input::placeholder {
+    font-family: 'Nunito', sans-serif;
+    color: #999;
+}
   
   #city-input:focus {
     border-color: var(--primary-color);
@@ -78,47 +116,161 @@
   #get-hustle-btn {
     background: var(--primary-color);
     color: white;
-    padding: 1rem 2rem;
+    padding: 1rem 2.5rem;
     border-radius: 50px;
     font-size: 1.1rem;
+    font-family: 'Nunito', sans-serif;
     text-transform: uppercase;
     letter-spacing: 1px;
-  }
-  
-  #get-hustle-btn:hover {
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: all 400ms ease;
+    width: 100%;        /* Added width */
+    max-width: 420px;   /* Match search field max-width */
+}
+
+#get-hustle-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+    background: #f57c00;  /* Orange color */
+    box-shadow: 0 5px 15px rgba(245, 124, 0, 0.4);
+}
+  
+  .cities-title {
+      text-align: center;
+      margin: 2rem 0 1rem;
+      font-family: 'Quicksand', sans-serif;
+      color: var(--text-dark);
   }
   
   .city-buttons-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1rem;
-    margin: 2rem 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+      justify-items: center;  /* Centers the buttons */
   }
   
+  @media (max-width: 768px) {
+      .city-buttons-container {
+          grid-template-columns: 1fr;
+          justify-items: center;
+      }
+      
+      .city-btn {
+          width: 80%;  /* Makes buttons slightly narrower on mobile */
+          max-width: 300px;  /* Prevents buttons from getting too wide */
+      }
+  }
   .city-btn {
     background: white;
     color: var(--text-dark);
     padding: 0.8rem;
-    border-radius: 12px;
+    border-radius: 100px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    font-family: 'Nunito', sans-serif;
+    transition: all 400ms ease;
+    width: 150px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
   }
-  
+
+  .city-btn.loading {
+    animation: glowingRed 1.5s ease-in-out infinite;
+    color: white;
+    margin: 0 !important;
+    padding: 0.8rem !important;
+    position: relative;
+    top: 0 !important;
+    transform: none !important;
+  }
+
+  .city-btn.loading::before,
+  .city-btn.loading::after {
+    content: none !important;
+  }
+
+  @keyframes glowingRed {
+    0% { background-color: rgba(255, 0, 0, 0.1); }
+    50% { background-color: rgba(255, 0, 0, 0.3); }
+    100% { background-color: rgba(255, 0, 0, 0.1); }
+  }
+
+  .city-btn.active {
+    background: var(--primary-color);
+    color: white;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+    transform: none;
+  }
+
   .city-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    background: #f57c00;
+    color: white;
+    box-shadow: 0 4px 12px rgba(245, 124, 0, 0.3);
+  }
+
+  /* Ensure hover doesn't override active state */
+  .city-btn.active:hover {
+    background: var(--primary-color);
+    transform: none;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
   }
   
   /* Hustle Cards */
   #hustle-output {
-    padding: 2rem 1rem;
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    padding: 40px 10px 2rem 10px;  /* Changed top padding to 40px */
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 50px; /* Added bottom margin for spacing from footer */
+    background-color: #e8f5e9; /* Light green background */
+    border-radius: 16px; /* Adding rounded corners */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* Subtle shadow */
   }
   
+  /* Refresh Button Container */
+  .refresh-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.25rem;
+    margin-bottom: 2rem;
+  }
+
+  #refresh-hustle-btn {
+    background: var(--secondary-color);
+    color: white;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-family: 'Nunito', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 3px 10px rgba(33, 150, 243, 0.2);
+    transition: all 400ms ease;
+    width: auto;
+    min-width: 200px;
+    margin: 0; /* Remove any default margins */
+  }
+
+  #refresh-hustle-btn:hover {
+    transform: translateY(-2px);
+    background: #1976D2;
+    box-shadow: 0 5px 15px rgba(33, 150, 243, 0.4);
+  }
+  
+  /* Hustle Cards Container */
+  .hustle-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;  /* Changed from 2rem */
+    justify-content: center;
+  }
+
   .hustle-card {
+    flex: 0 1 calc(33.333% - 11px);  /* Adjusted to account for new gap */
+    min-width: 300px;
     background: white;
     border-radius: 16px;
     padding: 2rem;
@@ -126,16 +278,36 @@
     transform: translateY(0);
     transition: var(--transition);
   }
-  
+
+  /* Responsive adjustments */
+  @media (max-width: 1024px) {
+    .hustle-card {
+      flex: 0 1 calc(50% - 8px);  /* Adjusted for new gap */
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hustle-card {
+      flex: 0 1 100%;
+    }
+  }
   .hustle-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(0,0,0,0.12);
   }
   
-  .hustle-card h3 {
-    color: var(--primary-color);
-    margin-bottom: 1.5rem;
-    font-size: 1.4rem;
+  .hustle-card h4 {
+      color: var(--primary-color);
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-top: 30px;
+      margin-bottom: 1rem;
+      font-family: 'Quicksand', sans-serif;
+  }
+  
+  /* Keep first section title aligned with card top */
+  .hustle-metrics h4:first-of-type {
+      margin-top: 0;
   }
   
   .hustle-details p {
@@ -173,21 +345,29 @@
     position: relative;
   }
   
-  .loading::after {
-    content: "";
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    border: 3px solid #ddd;
-    border-radius: 50%;
-    border-top-color: var(--primary-color);
-    animation: spin 1s ease-in-out infinite;
+  /* Create a separate class for Gemini loading output */
+  #hustle-output .loading {
+    font-size: 3em;  /* 3x larger for hustle output only */
+    font-weight: bold;
+    color: #d63031;  /* Red color */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
   }
   
-  @keyframes spin {
-    to { transform: rotate(360deg); }
+  /* Loading subtext styling */
+  .loading-subtext {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #666;
+    margin-top: 1rem;
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+    display: none;
   }
   
+  #hustle-output .loading + .loading-subtext {
+    display: block;
+  }
+
   .error {
     padding: 2rem;
     background: #ffeaea;
@@ -220,7 +400,280 @@
   footer {
     text-align: center;
     padding: 1.5rem;
-    background: var(--text-dark);
+    background: linear-gradient(135deg, #2e7d32 40%, #f57c00);
     color: white;
     margin-top: auto;
   }
+  
+  /* Scroll to Top Button */
+  .scroll-top-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    display: none;
+    padding: 12px;
+    z-index: 1000;
+    transition: background-color 0.3s;
+}
+
+.scroll-top-btn svg {
+    width: 100%;
+    height: 100%;
+    fill: white;
+}
+
+.scroll-top-btn:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Mobile-specific adjustments */
+@media screen and (max-width: 768px) {
+    .scroll-top-btn {
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+        bottom: 15px;
+        right: 15px;
+    }
+}
+
+/* Enhanced Hustle Card Styles */
+.hustle-metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.metric {
+    padding: 0.5rem 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+.profit-badge {
+    background-color: #28a745;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.metric-item {
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.timeline {
+    margin-top: 1rem;
+}
+
+.timeline-item {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.timeline-marker {
+    background: var(--primary-color);
+    color: white;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-weight: bold;
+    min-width: 40px;
+    text-align: center;
+}
+
+.resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.resource-item {
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.resource-item ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0 0;
+}
+
+.resource-item li {
+    margin: 0.5rem 0;
+    padding-left: 1rem;
+    border-left: 3px solid var(--primary-color);
+}
+
+.monetization-list {
+    margin-top: 1rem;
+}
+
+.monetization-item {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    align-items: center;
+}
+
+.monetization-number {
+    background: var(--primary-color);
+    color: white;
+    width: 28px;        /* Increased from 24px */
+    height: 28px;       /* Increased from 24px */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9rem;  /* Added to control number size */
+    flex-shrink: 0;     /* Prevent number from squishing */
+}
+
+.risk-item {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.risk-solution {
+    margin-top: 0.5rem;
+    padding-left: 1rem;
+    border-left: 3px solid var(--primary-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hustle-metrics {
+        flex-direction: column;
+    }
+    
+    .metrics-grid,
+    .resources-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.missing-section {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.missing-text {
+    color: #6c757d;
+    margin-bottom: 0.5rem;
+}
+
+.reload-section-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.reload-section-btn:hover {
+    background: #218838;
+    transform: translateY(-1px);
+}
+
+.reload-section-btn:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+}
+
+.hustle-card h3 {
+  color: #2e7d32;  /* Green color matching the theme */
+  font-size: 2rem; /* Doubled from typical h3 size */
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.hustle-heading {
+  text-align: center;
+  margin-bottom: 2.5rem; /* Increased margin space below */
+  color: var(--primary-color);
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700; /* Added bold font weight */
+}
+
+.hustle-subheading {
+  display: block;
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+  color: #f57c00; /* Orange color to make it stand out */
+  font-weight: 700; /* Added bold font weight */
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinning-emoji {
+  display: inline-block;
+  animation: spin 3s linear infinite;
+}
+
+.copy-button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0.5rem;
+}
+
+.copy-hustle-btn {
+    background-color: #e0e0e0;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.copy-hustle-btn:hover {
+    background-color: #d0d0d0;
+}
+
+.copy-hustle-btn svg {
+    width: 14px;
+    height: 14px;
+}

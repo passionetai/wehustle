@@ -13,23 +13,54 @@
             <h1>Welcome to WeHustle It - Find Your Local Hustle!</h1>
         </header>
 
-        <input type="text" id="city-input" placeholder="Enter your city">
-        <button id="get-hustle-btn">Get Hustle</button>
+        <div id="search-container">
+            <input type="text" id="city-input" placeholder="Enter your city">
+            <button id="get-hustle-btn">Get Hustle</button>
+        </div>
         
+        <h3 class="cities-title">Popular cities</h3>
         <div class="city-buttons-container">
             <button class="city-btn" data-city="New York">New York</button>
             <button class="city-btn" data-city="London">London</button>
             <button class="city-btn" data-city="Tokyo">Tokyo</button>
             <button class="city-btn" data-city="Paris">Paris</button>
             <button class="city-btn" data-city="Sydney">Sydney</button>
+            <button class="city-btn" data-city="Los Angeles">Los Angeles</button>
+            <button class="city-btn" data-city="Dubai">Dubai</button>
+            <button class="city-btn" data-city="Singapore">Singapore</button>
+            <button class="city-btn" data-city="Hong Kong">Hong Kong</button>
+            <button class="city-btn" data-city="Toronto">Toronto</button>
+            <button class="city-btn" data-city="Mumbai">Mumbai</button>
+            <button class="city-btn" data-city="Seoul">Seoul</button>
+            <button class="city-btn" data-city="São Paulo">São Paulo</button>
+            <button class="city-btn" data-city="Berlin">Berlin</button>
+            <button class="city-btn" data-city="Cape Town">Cape Town</button>
+            <button class="city-btn" data-city="Cairo">Cairo</button>
+            <button class="city-btn" data-city="Nairobi">Nairobi</button>
+            <button class="city-btn" data-city="Amsterdam">Amsterdam</button>
+            <button class="city-btn" data-city="Barcelona">Barcelona</button>
+            <button class="city-btn" data-city="Vancouver">Vancouver</button>
+            <button class="city-btn" data-city="Melbourne">Melbourne</button>
         </div>
     </div>
 
-    <div id="hustle-output"></div>
+    <div id="hustle-output">
+        <div class="hustle-cards-container">
+            <!-- Cards will be dynamically added here -->
+        </div>
+    </div>
 
     <footer>
         WeHustle It - Hustling Worldwide
     </footer>
+
+    <!-- Updated Scroll to Top Button -->
+    <button class="scroll-top-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 4l-8 8h6v8h4v-8h6z"/>
+        </svg>
+    </button>
+
     <script src="script.js"></script>
 </body>
 </html>
