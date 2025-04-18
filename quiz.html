@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TYJWE3HYBY"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-TYJWE3HYBY');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Take our Hustle Quiz to find the perfect side business that matches your skills and interests. Get personalized recommendations for your next venture.">
+    <meta name="keywords" content="hustle quiz, business quiz, entrepreneurship test, side hustle finder, WeHustle It, career quiz">
+    <meta name="author" content="WeHustle It">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="WeHustle It - Hustle Quiz">
+    <meta property="og:description" content="Discover your ideal side hustle with our personalized quiz. Get tailored business recommendations based on your skills and interests.">
+    <meta property="og:type" content="website">
+    <title>WeHustle It - Find Your Perfect Hustle Match</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;900&display=swap" rel="stylesheet">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="newstyles.css">
+    <style>
+        /* Add styles for selected quiz options */
+        .quiz-option input:checked + div {
+            border-color: #f9cb28; /* Yellow border */
+            background-color: #fefce8; /* Light yellow background */
+            box-shadow: 0 0 0 2px #f9cb28;
+        }
+        /* Hide actual radio button */
+        .quiz-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gradient-to-br from-gray-50 to-white min-h-screen">
+    <!-- Gradient background blob -->
+    <div class="fixed inset-0 overflow-hidden opacity-10 pointer-events-none -z-10">
+        <div class="absolute top-20 -left-20 w-96 h-96 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div class="absolute top-40 right-52 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-20 left-52 w-96 h-96 bg-yellow-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+    </div>
+
+    <!-- Sticky Navbar -->
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm">
+        <div class="px-6 md:px-16 lg:px-24 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center font-extrabold text-white">
+                    W
+                </div>
+                <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-yellow-400 tracking-tight">WeHustleIt</span>
+            </div>
+            
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="index.html" class="font-medium text-gray-600 hover:text-gray-900 transition-colors">Home</a>
+                <a href="quiz.html" class="font-medium text-orange-500 hover:text-orange-600 transition-colors" aria-current="page">Hustle Quiz</a>
+                <a href="calculator.html" class="font-medium text-gray-600 hover:text-gray-900 transition-colors">Calculator</a>
+                <a href="index.html#hustle-output" class="px-4 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-lg font-semibold hover:opacity-90 transition-opacity flex items-center space-x-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    <span class="hidden sm:inline">Start Hustling</span>
+                </a>
+            </div>
+            
+            <button id="mobile-menu-button" class="md:hidden text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden py-2 px-6 bg-white border-t">
+            <a href="index.html" class="block py-2 text-gray-700 hover:text-orange-500">Home</a>
+            <a href="quiz.html" class="block py-2 text-orange-500 hover:text-orange-600" aria-current="page">Hustle Quiz</a>
+            <a href="calculator.html" class="block py-2 text-gray-700 hover:text-orange-500">Calculator</a>
+            <a href="index.html#hustle-output" class="block w-full mt-2 px-4 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-lg font-semibold text-center">
+                Start Hustling
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Quiz Content -->
+    <main id="main-content" role="main" class="pt-12 pb-24 px-6 md:px-16 lg:px-24">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 leading-tight font-poppins">Find Your Perfect <span class="gradient-text">Hustle Match!</span></h1>
+            <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">Answer a few quick questions to discover the best side hustle that matches your preferences and availability.</p>
+        </header>
+
+        <!-- Quiz Container -->
+        <div class="quiz-container max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-lg border border-gray-100" role="form" aria-label="Hustle matching quiz">
+            <form id="hustle-quiz">
+                <!-- Progress Bar (Optional but recommended) -->
+                <div class="mb-6">
+                    <div class="bg-gray-200 rounded-full h-2.5">
+                        <div id="quiz-progress-bar" class="bg-gradient-to-r from-yellow-400 to-orange-500 h-2.5 rounded-full" style="width: 0%"></div>
+                    </div>
+                    <p class="text-sm text-gray-500 text-center mt-2">Question <span id="current-question-number">1</span> of 5</p>
+                </div>
+
+                <!-- Questions will be dynamically shown/hidden by quiz.js -->
+                <!-- Question 1 -->
+                <div class="quiz-step" id="step1" role="group" aria-labelledby="q1-title">
+                    <h3 id="q1-title" class="text-2xl font-semibold mb-6 text-gray-800">Where do you prefer to work?</h3>
+                    <div class="space-y-4" role="radiogroup" aria-labelledby="q1-title">
+                        <label class="quiz-option block cursor-pointer">
+                            <input type="radio" name="q1" value="outdoors" required class="sr-only">
+                            <div class="p-4 border border-gray-200 rounded-lg hover:border-yellow-400 transition-colors">
+                                <span class="font-medium text-gray-700">Outdoors</span>
+                                <span class="block text-sm text-gray-500">I enjoy being outside and active</span>
+                            </div>
+                        </label>
+                        <label class="quiz-option block cursor-pointer">
+                            <input type="radio" name="q1" value="indoors" required class="sr-only">
+                             <div class="p-4 border border-gray-200 rounded-lg hover:border-yellow-400 transition-colors">
+                                <span class="font-medium text-gray-700">Indoors</span>
+                                <span class="block text-sm text-gray-500">I prefer working from home or office spaces</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 2 (Hidden initially) -->
+                <div class="quiz-step hidden" id="step2" role="group" aria-labelledby="q2-title">
+                    <h3 id="q2-title" class="text-2xl font-semibold mb-6 text-gray-800">How many hours can you commit weekly?</h3>
+                    <div class="space-y-4" role="radiogroup" aria-labelledby="q2-title">
+                         <label class="quiz-option block cursor-pointer">
+                            <input type="radio" name="q2" value="less10" required class="sr-only">
+                             <div class="p-4 border border-gray-200 rounded-lg hover:border-yellow-400 transition-colors">
+                                <span class="font-medium text-gray-700">Less than 10 hours</span>
+                                <span class="block text-sm text-gray-500">I'm looking for something very part-time</span>
+                            </div>
+                        </label>
+                         <label class="quiz-option block cursor-pointer">
+                            <input type="radio" name="q2" value="10-20" required class="sr-only">
+                             <div class="p-4 border border-gray-200 rounded-lg hover:border-yellow-400 transition-colors">
+                                <span class="font-medium text-gray-700">10-20 hours</span>
+                                <span class="block text-sm text-gray-500">I can dedicate a moderate amount of time</span>
+                            </div>
+                        </label>
+                         <label class="quiz-option block cursor-pointer">
+                            <input type="radio" name="q2" value="more20" required class="sr-only">
+                             <div class="p-4 border border-gray-200 rounded-lg hover:border-yellow-400 transition-colors">
+                                <span class="font-medium text-gray-700">More than 20 hours</span>
+                                <span class="block text-sm text-gray-500">I'm ready to commit significant time</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 3 (Hidden initially) -->
+                 <div class="quiz-step hidden" id="step3" role="group" aria-labelledby="q3-title">
+                    <h3 id="q3-title" class="text-2xl font-semibold mb-6 text-gray-800">What's your skill level?</h3>
+                    <div class="space-y-4" role="radiogroup" aria-labelledby="q3-title">
+                         <label class="quiz-option block cursor-pointer">
+                            <input type="radio" name="q3" value="beginner" required class="sr-only">
+                             <div class="p-4 border border-gray-200 rounded-lg hover:border-yellow-400 transition-colors">
+                                <span class="font-medium text-gray-700">Beginner</span>
+                                <span class="block text-sm text-gray-500">I'm new to this</span>
+                            </div>
+                        </label>
+                         <label class="quiz-option block cursor-pointer">
+                            <input type="radio" name="q3" value="intermediate" required class="sr-only">
+                             <div class="p-4 border border-gray-200 rounded-lg hover:border-yellow-400 transition-colors">
+                                <span class="font-medium text-gray-700">Intermediate</span>
+                                <span class="block text-sm text-gray-500">I have some experience</span>
+                            </div>
+                        </label>
+                         <label class="quiz-option block cursor-pointer">
+                            <input type="radio" name="q3" value="advanced" required class="sr-only">
+                             <div class="p-4 border border-gray-200 rounded-lg hover:border-yellow-400 transition-colors">
+                                <span class="font-medium text-gray-700">Advanced</span>
+                                <span class="block text-sm text-gray-500">I'm skilled</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 4 (Hidden initially) -->
+                 <div class="quiz-step hidden" id="step4" role="group" aria-labelledby="q4-title">
+                    <h3 id="q4-title" class="text-2xl font-semibold mb-6 text-gray-800">What are you most interested in?</h3>
+                    <div class="space-y-4" role="radiogroup" aria-labelledby="q4-title">
+                         <label class="quiz-option block cursor-pointer">
+                            <input type="radio" name="q4" value="creative" required class="sr-only">
+                             <div class="p-4 border border-gray-200 rounded-lg hover:border-yellow-400 transition-colors">
+                                <span class="font-medium text-gray-700">Creative work</span>
+                                <span class="block text-sm text-gray-500">e.g., art, design</span>
+                            </div>
+                        </label>
+                         <label class="quiz-option block cursor-pointer">
+                            <input type="radio" name="q4" value="technical" required class="sr-only">
+                             <div class="p-4 border border-gray-200 rounded-lg hover:border-yellow-400 transition-colors">
+                                <span class="font-medium text-gray-700">Technical work</span>
+                                <span class="block text-sm text-gray-500">e.g., tech, data</span>
+                            </div>
+                        </label>
+                         <label class="quiz-option block cursor-pointer">
+                            <input type="radio" name="q4" value="social" required class="sr-only">
+                             <div class="p-4 border border-gray-200 rounded-lg hover:border-yellow-400 transition-colors">
+                                <span class="font-medium text-gray-700">Social work</span>
+                                <span class="block text-sm text-gray-500">e.g., events, teaching</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 5 (Hidden initially) -->
+                 <div class="quiz-step hidden" id="step5" role="group" aria-labelledby="q5-title">
+                    <h3 id="q5-title" class="text-2xl font-semibold mb-6 text-gray-800">What's your startup budget?</h3>
+                    <div class="space-y-4" role="radiogroup" aria-labelledby="q5-title">
+                         <label class="quiz-option block cursor-pointer">
+                            <input type="radio" name="q5" value="low" required class="sr-only">
+                             <div class="p-4 border border-gray-200 rounded-lg hover:border-yellow-400 transition-colors">
+                                <span class="font-medium text-gray-700">Low</span>
+                                <span class="block text-sm text-gray-500">Under $100</span>
+                            </div>
+                        </label>
+                         <label class="quiz-option block cursor-pointer">
+                            <input type="radio" name="q5" value="medium" required class="sr-only">
+                             <div class="p-4 border border-gray-200 rounded-lg hover:border-yellow-400 transition-colors">
+                                <span class="font-medium text-gray-700">Medium</span>
+                                <span class="block text-sm text-gray-500">$100-$500</span>
+                            </div>
+                        </label>
+                         <label class="quiz-option block cursor-pointer">
+                            <input type="radio" name="q5" value="high" required class="sr-only">
+                             <div class="p-4 border border-gray-200 rounded-lg hover:border-yellow-400 transition-colors">
+                                <span class="font-medium text-gray-700">High</span>
+                                <span class="block text-sm text-gray-500">Over $500</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Results Section (Hidden initially) -->
+                <div id="quiz-results" class="hidden mt-8 text-center">
+                    <h2 class="text-3xl font-bold mb-4 text-gray-800">Your Recommended Hustle:</h2>
+                    <div id="result-content" class="p-6 bg-yellow-50 border border-yellow-200 rounded-lg">
+                        <!-- Result content will be injected here by quiz.js -->
+                        <p>Loading your perfect hustle...</p>
+                    </div>
+                    <button type="button" onclick="window.location.href='index.html#hustle-output';" class="mt-6 px-6 py-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-lg font-semibold hover:opacity-90 transition-opacity">
+                        Find Hustles Like This
+                    </button>
+                     <button type="button" onclick="location.reload();" class="mt-6 ml-4 px-6 py-3 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 transition-colors">
+                        Retake Quiz
+                    </button>
+                </div>
+
+                <!-- Loading/Error States -->
+                <div id="quiz-loading" class="hidden mt-8 text-center text-gray-600" role="alert" aria-live="polite">
+                    <div class="inline-block w-8 h-8 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin mb-4"></div>
+                    <p>Analyzing your responses...</p>
+                </div>
+                <div id="quiz-error" class="hidden mt-8 text-center text-red-600 bg-red-100 p-4 rounded-lg" role="alert" aria-live="assertive">
+                    <p>An error occurred. Please try again.</p>
+                    <button type="button" class="retry-button mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600" onclick="retryQuiz()" aria-label="Retry quiz">Retry</button>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="mt-8 flex justify-between">
+                     <button type="button" id="prev-btn" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>Previous</button>
+                     <button type="button" id="next-btn" class="px-6 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-lg font-semibold hover:opacity-90 transition-opacity">Next</button>
+                     <button type="submit" id="submit-btn" class="hidden px-6 py-2 bg-gradient-to-r from-green-500 to-teal-500 text-white rounded-lg font-semibold hover:opacity-90 transition-opacity">See Results</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 px-6 md:px-16 lg:px-24 mt-20">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center space-x-2 mb-4">
+                    <div class="w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center font-extrabold text-white">W</div>
+                    <span class="text-xl font-bold tracking-tight">WeHustleIt</span>
+                </div>
+                <p class="text-gray-400 text-sm">Helping you find and launch profitable side hustles since 2020.</p>
+                <!-- Social Icons -->
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Company</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Careers</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Resources</h3>
+                <ul class="space-y-2">
+                    <li><a href="get_leads.html" class="text-gray-400 hover:text-white transition-colors">Get Leads</a></li>
+                    <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Hustle Finder</a></li>
+                    <li><a href="calculator.html" class="text-gray-400 hover:text-white transition-colors">Calculator</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Legal</h3>
+                <ul class="space-y-2">
+                    <li><a href="privacy_policy.html" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                    <li><a href="terms_of_service.html" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-6xl mx-auto pt-8 mt-8 border-t border-gray-800 text-center text-gray-400 text-sm">
+            <p>© 2025 WeHustleIt. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scroll-top" class="fixed bottom-6 right-6 w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
+
+    <!-- Scripts -->
+    <script src="newjs.js"></script> <!-- Include common JS like navbar toggle -->
+    <script src="quiz.js"></script> <!-- Keep quiz-specific logic -->
+
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TYJWE3HYBY"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-TYJWE3HYBY');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculate your potential earnings and ROI with our Hustle Calculator. Plan your side business with accurate financial projections.">
+    <meta name="keywords" content="hustle calculator, business ROI calculator, side hustle earnings, profit calculator, WeHustle It, business planning">
+    <meta name="author" content="WeHustle It">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="WeHustle It - Hustle Calculator">
+    <meta property="og:description" content="Plan your side hustle success with our earnings calculator. Get accurate financial projections and ROI estimates for your business idea.">
+    <meta property="og:type" content="website">
+    <title>WeHustle It - Calculate Your Hustle Earnings</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;900&display=swap" rel="stylesheet">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="newstyles.css">
+</head>
+<body class="font-sans bg-gradient-to-br from-gray-50 to-white min-h-screen">
+    <!-- Gradient background blob -->
+    <div class="fixed inset-0 overflow-hidden opacity-10 pointer-events-none -z-10">
+        <div class="absolute top-20 -left-20 w-96 h-96 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div class="absolute top-40 right-52 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-20 left-52 w-96 h-96 bg-yellow-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+    </div>
+
+    <!-- Sticky Navbar -->
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm">
+        <div class="px-6 md:px-16 lg:px-24 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center font-extrabold text-white">
+                    W
+                </div>
+                <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-yellow-400 tracking-tight">WeHustleIt</span>
+            </div>
+            
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="index.html" class="font-medium text-gray-600 hover:text-gray-900 transition-colors">Home</a>
+                <a href="quiz.html" class="font-medium text-gray-600 hover:text-gray-900 transition-colors">Hustle Quiz</a>
+                <a href="calculator.html" class="font-medium text-orange-500 hover:text-orange-600 transition-colors" aria-current="page">Calculator</a>
+                <a href="index.html#hustle-output" class="px-4 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-lg font-semibold hover:opacity-90 transition-opacity flex items-center space-x-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    <span class="hidden sm:inline">Start Hustling</span>
+                </a>
+            </div>
+            
+            <button id="mobile-menu-button" class="md:hidden text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden py-2 px-6 bg-white border-t">
+            <a href="index.html" class="block py-2 text-gray-700 hover:text-orange-500">Home</a>
+            <a href="quiz.html" class="block py-2 text-gray-700 hover:text-orange-500">Hustle Quiz</a>
+            <a href="calculator.html" class="block py-2 text-orange-500 hover:text-orange-600" aria-current="page">Calculator</a>
+            <a href="index.html#hustle-output" class="block w-full mt-2 px-4 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-lg font-semibold text-center">
+                Start Hustling
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Calculator Content -->
+    <main id="main-content" role="main" class="pt-12 pb-24 px-6 md:px-16 lg:px-24">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 leading-tight font-poppins">Hustle <span class="gradient-text">Calculator</span></h1>
+            <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">Estimate your potential earnings and break-even point.</p>
+        </header>
+
+        <!-- Calculator Container -->
+        <div class="max-w-lg mx-auto bg-white p-8 rounded-xl shadow-lg border border-gray-100" role="form" aria-label="Earnings calculator">
+            <form id="calculator-form">
+                <div class="space-y-6">
+                    <!-- Input Group 1 -->
+                    <div>
+                        <label for="initial-investment" class="block text-sm font-medium text-gray-700 mb-1">Initial Investment ($)</label>
+                        <input type="number" id="initial-investment" min="0" step="1" required 
+                               aria-label="Enter initial investment amount in dollars" 
+                               aria-describedby="investment-error"
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-700">
+                        <div id="investment-error" class="text-red-600 text-sm mt-1" role="alert" hidden></div>
+                    </div>
+                    
+                    <!-- Input Group 2 -->
+                    <div>
+                        <label for="hours-per-week" class="block text-sm font-medium text-gray-700 mb-1">Hours per Week</label>
+                        <input type="number" id="hours-per-week" min="1" max="168" step="1" required 
+                               aria-label="Enter number of hours per week" 
+                               aria-describedby="hours-error"
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-700">
+                        <div id="hours-error" class="text-red-600 text-sm mt-1" role="alert" hidden></div>
+                    </div>
+                    
+                    <!-- Input Group 3 -->
+                    <div>
+                        <label for="hourly-rate" class="block text-sm font-medium text-gray-700 mb-1">Expected Hourly Rate ($)</label>
+                        <input type="number" id="hourly-rate" min="1" step="0.01" required 
+                               aria-label="Enter expected hourly rate in dollars" 
+                               aria-describedby="rate-error"
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-gray-700">
+                        <div id="rate-error" class="text-red-600 text-sm mt-1" role="alert" hidden></div>
+                    </div>
+                </div>
+                
+                <!-- Submit Button -->
+                <div class="mt-8">
+                    <button type="submit" 
+                            class="w-full px-6 py-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-lg font-semibold hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500" 
+                            aria-label="Calculate earnings">
+                        Calculate Potential
+                    </button>
+                </div>
+            </form>
+
+            <!-- Loading State -->
+            <div id="calc-loading" class="hidden mt-8 text-center text-gray-600" role="alert" aria-live="polite">
+                <div class="inline-block w-8 h-8 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin mb-4"></div>
+                <p>Calculating your potential earnings...</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="calc-error" class="hidden mt-8 text-center text-red-600 bg-red-100 p-4 rounded-lg" role="alert" aria-live="assertive">
+                <p>An error occurred. Please check your inputs and try again.</p>
+            </div>
+
+            <!-- Results Container -->
+            <div id="calculator-results" class="mt-8 pt-6 border-t border-gray-200" role="region" aria-label="Calculation results" aria-live="polite">
+                <!-- Results will be dynamically inserted here by calculator.js -->
+                <!-- Example structure (needs styling):
+                <h3 class="text-lg font-semibold mb-2">Results:</h3>
+                <p>Weekly Earnings: $XXX</p>
+                <p>Monthly Earnings: $XXX</p>
+                <p>Yearly Earnings: $XXX</p>
+                <p>Break-even Time: X weeks/months</p> 
+                -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+     <footer class="bg-gray-900 text-white py-12 px-6 md:px-16 lg:px-24 mt-20">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center space-x-2 mb-4">
+                    <div class="w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center font-extrabold text-white">W</div>
+                    <span class="text-xl font-bold tracking-tight">WeHustleIt</span>
+                </div>
+                <p class="text-gray-400 text-sm">Helping you find and launch profitable side hustles since 2020.</p>
+                <!-- Social Icons -->
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Company</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Careers</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Resources</h3>
+                <ul class="space-y-2">
+                    <li><a href="get_leads.html" class="text-gray-400 hover:text-white transition-colors">Get Leads</a></li>
+                    <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Hustle Finder</a></li>
+                     <li><a href="quiz.html" class="text-gray-400 hover:text-white transition-colors">Hustle Quiz</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Legal</h3>
+                <ul class="space-y-2">
+                    <li><a href="privacy_policy.html" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                    <li><a href="terms_of_service.html" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-6xl mx-auto pt-8 mt-8 border-t border-gray-800 text-center text-gray-400 text-sm">
+            <p>© 2025 WeHustleIt. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scroll-top" class="fixed bottom-6 right-6 w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
+
+    <!-- Scripts -->
+    <script src="newjs.js"></script> <!-- Common JS (e.g., navbar toggle, scroll-to-top) -->
+    <script src="calculator.js"></script> <!-- Calculator-specific logic -->
+
+</body>
+</html>

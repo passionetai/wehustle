@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TYJWE3HYBY"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-TYJWE3HYBY');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Access your saved side hustle ideas and business opportunities. Manage and track your favorite business ventures with WeHustle It.">
+    <meta name="keywords" content="saved hustles, business ideas, side hustle management, WeHustle It, business tracking">
+    <meta name="author" content="WeHustle It">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="WeHustle It - Saved Hustles">
+    <meta property="og:description" content="Access and manage your saved business opportunities. Keep track of your favorite side hustle ideas with WeHustle It.">
+    <meta property="og:type" content="website">
+    <title>WeHustle It - Your Saved Hustles</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;900&display=swap" rel="stylesheet">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="newstyles.css">
+</head>
+<body class="font-sans bg-gradient-to-br from-gray-50 to-white min-h-screen">
+    <!-- Gradient background blob -->
+    <div class="fixed inset-0 overflow-hidden opacity-10 pointer-events-none -z-10">
+        <div class="absolute top-20 -left-20 w-96 h-96 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div class="absolute top-40 right-52 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-20 left-52 w-96 h-96 bg-yellow-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+    </div>
+
+    <!-- Sticky Navbar -->
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm">
+        <div class="px-6 md:px-16 lg:px-24 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                 <a href="index.html" class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center font-extrabold text-white">
+                        W
+                    </div>
+                    <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-yellow-400 tracking-tight">WeHustleIt</span>
+                 </a>
+            </div>
+            
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="index.html" class="font-medium text-gray-600 hover:text-gray-900 transition-colors">Home</a>
+                <a href="quiz.html" class="font-medium text-gray-600 hover:text-gray-900 transition-colors">Hustle Quiz</a>
+                <a href="calculator.html" class="font-medium text-gray-600 hover:text-gray-900 transition-colors">Calculator</a>
+                
+            </div>
+            
+            <button id="mobile-menu-button" class="md:hidden text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden py-2 px-6 bg-white border-t">
+            <a href="index.html" class="block py-2 text-gray-700 hover:text-orange-500">Home</a>
+            <a href="quiz.html" class="block py-2 text-gray-700 hover:text-orange-500">Hustle Quiz</a>
+            <a href="calculator.html" class="block py-2 text-gray-700 hover:text-orange-500">Calculator</a>
+            
+        </div>
+    </nav>
+
+    <!-- Main Saved Hustles Content -->
+    <main id="main-content" role="main" class="pt-12 pb-24 px-6 md:px-16 lg:px-24">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 leading-tight font-poppins">Your <span class="gradient-text">Saved Hustles</span></h1>
+            <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">Manage and review the hustle ideas you've saved.</p>
+        </header>
+
+        <!-- Saved Hustles Container -->
+        <div class="max-w-6xl mx-auto">
+            <!-- Optional: Add Filter/Sort Controls Here -->
+            <!-- 
+            <div class="mb-8 flex justify-end">
+                 <select id="difficulty-filter" class="bg-white px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                    <option value="all">All Difficulties</option>
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+            </div>
+             -->
+
+            <div id="saved-hustles-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Saved hustle cards will be dynamically loaded here by saved.js -->
+                <!-- Placeholder while loading or if empty -->
+                 <p id="loading-saved" class="text-gray-500 text-center col-span-full hidden">Loading your saved hustles...</p>
+                 <p id="no-saved" class="text-gray-500 text-center col-span-full">You haven't saved any hustles yet. <a href="index.html" class="text-orange-500 hover:underline">Find some now!</a></p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+     <footer class="bg-gray-900 text-white py-12 px-6 md:px-16 lg:px-24 mt-20">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center space-x-2 mb-4">
+                     <a href="index.html" class="flex items-center space-x-2">
+                        <div class="w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center font-extrabold text-white">W</div>
+                        <span class="text-xl font-bold tracking-tight">WeHustleIt</span>
+                     </a>
+                </div>
+                <p class="text-gray-400 text-sm">Helping you find and launch profitable side hustles since 2020.</p>
+                <!-- Social Icons -->
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Company</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Careers</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Resources</h3>
+                <ul class="space-y-2">
+                    <li><a href="get_leads.html" class="text-gray-400 hover:text-white transition-colors">Get Leads</a></li>
+                    <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Hustle Finder</a></li>
+                     <li><a href="quiz.html" class="text-gray-400 hover:text-white transition-colors">Hustle Quiz</a></li>
+                     <li><a href="calculator.html" class="text-gray-400 hover:text-white transition-colors">Calculator</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Legal</h3>
+                <ul class="space-y-2">
+                    <li><a href="privacy_policy.html" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                    <li><a href="terms_of_service.html" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-6xl mx-auto pt-8 mt-8 border-t border-gray-800 text-center text-gray-400 text-sm">
+            <p>© 2025 WeHustleIt. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scroll-top" class="fixed bottom-6 right-6 w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
+
+    <!-- Scripts -->
+    <script src="newjs.js"></script> <!-- Common JS (e.g., navbar toggle, scroll-to-top) -->
+    <script src="saved.js"></script> <!-- Saved page specific logic -->
+
+</body>
+</html>
