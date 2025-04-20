@@ -44,7 +44,7 @@ async function loadBlogPost() {
         } else {
             try {
                 // If no localStorage data, try to fetch from file
-                const response = await fetch('cms/posts/posts.json');
+                const response = await fetch('../cms/posts/posts.json');
                 data = await response.json();
                 console.log('Using data from file for blog post');
             } catch (error) {
@@ -140,7 +140,7 @@ function renderBlogPost(post) {
         postCategories.innerHTML = '';
         post.categories.forEach(category => {
             const link = document.createElement('a');
-            link.href = `blog.html?category=${encodeURIComponent(category)}`;
+            link.href = `../blog.html?category=${encodeURIComponent(category)}`;
             link.className = 'inline-block bg-yellow-100 text-yellow-800 rounded-full px-3 py-1 text-sm font-medium mr-2 mb-2';
             link.textContent = category;
             postCategories.appendChild(link);
@@ -152,7 +152,7 @@ function renderBlogPost(post) {
         postTags.innerHTML = '';
         post.tags.forEach(tag => {
             const link = document.createElement('a');
-            link.href = `blog.html?tag=${encodeURIComponent(tag)}`;
+            link.href = `../blog.html?tag=${encodeURIComponent(tag)}`;
             link.className = 'inline-block bg-gray-100 text-gray-800 rounded-full px-3 py-1 text-sm font-medium mr-2 mb-2';
             link.textContent = tag;
             postTags.appendChild(link);
@@ -215,7 +215,7 @@ function loadRelatedPosts(currentPost, allPosts) {
                 </div>
                 <h2 class="text-xl font-bold mb-2 text-gray-800">${post.title}</h2>
                 <p class="text-gray-600 text-sm mb-4 flex-grow">${post.excerpt}</p>
-                <a href="blog/${post.slug}.html" class="mt-auto text-yellow-600 hover:text-orange-500 font-semibold text-sm">Read More &rarr;</a>
+                <a href="${post.slug}.html" class="mt-auto text-yellow-600 hover:text-orange-500 font-semibold text-sm">Read More &rarr;</a>
             </div>
         `;
 
