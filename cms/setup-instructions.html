@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeHustleIt CMS Setup Instructions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="font-sans bg-gray-100 min-h-screen p-8">
+    <div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+        <div class="flex items-center space-x-2 mb-6">
+            <div class="w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center font-extrabold text-white">
+                W
+            </div>
+            <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-yellow-400 tracking-tight">WeHustleIt CMS</span>
+        </div>
+
+        <h1 class="text-3xl font-bold mb-6">Setup Instructions</h1>
+
+        <div class="space-y-6">
+            <section>
+                <h2 class="text-xl font-bold mb-3">Running the CMS Locally</h2>
+                <p class="mb-4">To run the CMS locally, you need to serve the files through a web server to avoid CORS issues. Here are a few options:</p>
+
+                <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                    <h3 class="font-bold mb-2">Option 1: Use a Simple HTTP Server</h3>
+                    <p class="mb-2">If you have Python installed, you can use its built-in HTTP server:</p>
+                    <div class="bg-gray-800 text-white p-3 rounded font-mono text-sm mb-2">
+                        # Navigate to your website root directory<br>
+                        cd "C:\Users\Passionet\Desktop\wehustle.it.com\WH Site"<br><br>
+                        # Python 3.x<br>
+                        python -m http.server 8000<br><br>
+                        # Or Python 2.x<br>
+                        python -m SimpleHTTPServer 8000
+                    </div>
+                    <p>Then open <a href="http://localhost:8000/cms/admin.html" class="text-blue-600 hover:underline" target="_blank">http://localhost:8000/cms/admin.html</a> in your browser.</p>
+                </div>
+
+                <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                    <h3 class="font-bold mb-2">Option 2: Use Node.js http-server</h3>
+                    <p class="mb-2">If you have Node.js installed, you can use http-server:</p>
+                    <div class="bg-gray-800 text-white p-3 rounded font-mono text-sm mb-2">
+                        # Install http-server globally (if not already installed)<br>
+                        npm install -g http-server<br><br>
+                        # Navigate to your website root directory<br>
+                        cd "C:\Users\Passionet\Desktop\wehustle.it.com\WH Site"<br><br>
+                        # Start the server<br>
+                        http-server
+                    </div>
+                    <p>Then open <a href="http://localhost:8080/cms/admin.html" class="text-blue-600 hover:underline" target="_blank">http://localhost:8080/cms/admin.html</a> in your browser.</p>
+                </div>
+
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h3 class="font-bold mb-2">Option 3: Use VS Code Live Server Extension</h3>
+                    <p class="mb-2">If you're using Visual Studio Code, you can install the "Live Server" extension:</p>
+                    <ol class="list-decimal list-inside mb-2 space-y-1">
+                        <li>Install the "Live Server" extension from the VS Code marketplace</li>
+                        <li>Right-click on index.html in the file explorer</li>
+                        <li>Select "Open with Live Server"</li>
+                        <li>Navigate to the CMS admin page in your browser</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-bold mb-3">Using the CMS</h2>
+                <p class="mb-4">Once you have the server running:</p>
+
+                <ol class="list-decimal list-inside space-y-2">
+                    <li>Access the admin dashboard at <code class="bg-gray-100 px-2 py-1 rounded">/cms/admin.html</code></li>
+                    <li>Login with the default credentials:
+                        <ul class="list-disc list-inside ml-6 mt-1">
+                            <li>Username: <code class="bg-gray-100 px-2 py-1 rounded">admin</code></li>
+                            <li>Password: <code class="bg-gray-100 px-2 py-1 rounded">admin</code></li>
+                        </ul>
+                    </li>
+                    <li>Create and manage your blog content</li>
+                    <li>View your blog at <code class="bg-gray-100 px-2 py-1 rounded">/blog.html</code></li>
+                </ol>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-bold mb-3">Important Notes</h2>
+                <ul class="list-disc list-inside space-y-2">
+                    <li>This CMS uses localStorage for data persistence in this local development setup</li>
+                    <li>In a production environment, you would need a proper backend server</li>
+                    <li>The TinyMCE editor is using a valid API key with premium features enabled</li>
+                    <li>This key is for development purposes only - for a production site, you should get your own API key</li>
+                </ul>
+            </section>
+
+            <div class="border-t border-gray-200 pt-6 mt-6">
+                <a href="admin.html" class="inline-block px-4 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-md font-semibold hover:opacity-90 transition-opacity">
+                    Go to Admin Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

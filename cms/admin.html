@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TYJWE3HYBY"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-TYJWE3HYBY');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>WeHustle It - Blog CMS</title>
+    <link rel="icon" type="image/png" href="../images/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../newstyles.css">
+
+    <!-- TinyMCE with API key -->
+    <script src="https://cdn.tiny.cloud/1/ule3xi2yxtjpmvqc8so8loadvqdln1j39bwri5r2qyyt8sz9/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+</head>
+<body class="font-sans bg-gray-100 min-h-screen flex flex-col">
+    <!-- Login Screen (shown by default, hidden after login) -->
+    <div id="login-screen" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
+        <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+            <div class="flex items-center space-x-2 mb-6">
+                <div class="w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center font-extrabold text-white">
+                    W
+                </div>
+                <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-yellow-400 tracking-tight">WeHustleIt CMS</span>
+            </div>
+
+            <h2 class="text-2xl font-bold mb-6">Admin Login</h2>
+
+            <form id="login-form" class="space-y-4">
+                <div>
+                    <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+                    <input type="text" id="username" name="username" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none">
+                </div>
+
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <input type="password" id="password" name="password" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none">
+                </div>
+
+                <div id="login-error" class="text-red-500 text-sm hidden">
+                    Invalid username or password. Please try again.
+                </div>
+
+                <button type="submit" class="w-full py-2 px-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-md font-semibold hover:opacity-90 transition-opacity">
+                    Login
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Header -->
+    <header class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col space-y-2">
+            <div class="flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center font-extrabold text-white">
+                    W
+                </div>
+                <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-yellow-400 tracking-tight">WeHustleIt CMS</span>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <a href="../blog.html" target="_blank" class="text-gray-600 hover:text-gray-900 transition-colors">
+                    View Blog
+                </a>
+                <button id="export-data-btn" class="text-gray-600 hover:text-gray-900 transition-colors">
+                    Export Data
+                </button>
+                <a href="github-proxy.html" class="text-gray-600 hover:text-gray-900 transition-colors">
+                    GitHub Setup
+                </a>
+                <button id="logout-btn" class="text-gray-600 hover:text-gray-900 transition-colors">
+                    Logout
+                </button>
+            </div>
+            <div id="github-status" class="text-sm"></div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Tabs -->
+            <div class="border-b border-gray-200 mb-6">
+                <nav class="-mb-px flex space-x-8">
+                    <button id="tab-posts" class="tab-button active whitespace-nowrap py-4 px-1 border-b-2 border-yellow-500 font-medium text-sm text-yellow-600">
+                        Posts
+                    </button>
+                    <button id="tab-new-post" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300">
+                        New Post
+                    </button>
+                    <button id="tab-categories" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300">
+                        Categories & Tags
+                    </button>
+                    <button id="tab-settings" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300">
+                        Settings
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Posts Tab Content -->
+            <div id="content-posts" class="tab-content">
+                <div class="flex justify-between items-center mb-6">
+                    <h1 class="text-2xl font-bold text-gray-900">All Posts</h1>
+                    <div class="flex space-x-2">
+                        <input type="text" id="post-search" placeholder="Search posts..." class="px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none">
+                        <select id="category-filter" class="px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none">
+                            <option value="">All Categories</option>
+                            <!-- Categories will be populated by JavaScript -->
+                        </select>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow overflow-hidden sm:rounded-md">
+                    <ul id="posts-list" class="divide-y divide-gray-200">
+                        <!-- Posts will be populated by JavaScript -->
+                        <li class="px-6 py-4 flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 h-10 w-10 bg-gray-200 rounded-md"></div>
+                                <div class="ml-4">
+                                    <div class="text-sm font-medium text-gray-900">Loading posts...</div>
+                                    <div class="text-sm text-gray-500">Please wait</div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="mt-6 flex justify-between">
+                    <button id="prev-page" class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
+                        Previous
+                    </button>
+                    <span id="page-info" class="text-sm text-gray-700 self-center">
+                        Page <span id="current-page">1</span> of <span id="total-pages">1</span>
+                    </span>
+                    <button id="next-page" class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
+                        Next
+                    </button>
+                </div>
+            </div>
+
+            <!-- New Post Tab Content -->
+            <div id="content-new-post" class="tab-content hidden">
+                <div class="flex justify-between items-center mb-6">
+                    <h1 class="text-2xl font-bold text-gray-900" id="post-form-title">Create New Post</h1>
+                    <button id="save-post" class="px-4 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-md font-semibold hover:opacity-90 transition-opacity">
+                        Publish Post
+                    </button>
+                </div>
+
+                <form id="post-form" class="space-y-6">
+                    <input type="hidden" id="post-id" value="">
+
+                    <div>
+                        <label for="post-title" class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                        <input type="text" id="post-title" name="title" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none">
+                    </div>
+
+                    <div>
+                        <label for="post-slug" class="block text-sm font-medium text-gray-700 mb-1">Slug (URL)</label>
+                        <div class="flex">
+                            <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
+                                /blog/
+                            </span>
+                            <input type="text" id="post-slug" name="slug" class="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md border border-gray-300 focus:ring-yellow-400 focus:border-yellow-400">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="post-excerpt" class="block text-sm font-medium text-gray-700 mb-1">Excerpt</label>
+                        <textarea id="post-excerpt" name="excerpt" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none"></textarea>
+                    </div>
+
+                    <div>
+                        <label for="post-content" class="block text-sm font-medium text-gray-700 mb-1">Content</label>
+                        <textarea id="post-content" name="content"></textarea>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="post-image" class="block text-sm font-medium text-gray-700 mb-1">Featured Image URL</label>
+                            <input type="text" id="post-image" name="image" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none">
+                            <p class="mt-1 text-sm text-gray-500">Enter a URL or upload an image</p>
+
+                            <div class="mt-2">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Upload Image</label>
+                                <input type="file" id="image-upload" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-yellow-50 file:text-yellow-700 hover:file:bg-yellow-100">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="post-author" class="block text-sm font-medium text-gray-700 mb-1">Author</label>
+                            <input type="text" id="post-author" name="author" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none">
+
+                            <div class="mt-4">
+                                <label for="post-date" class="block text-sm font-medium text-gray-700 mb-1">Publication Date</label>
+                                <input type="date" id="post-date" name="date" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="post-categories" class="block text-sm font-medium text-gray-700 mb-1">Categories</label>
+                            <select id="post-categories" name="categories" multiple class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none">
+                                <!-- Categories will be populated by JavaScript -->
+                            </select>
+                            <p class="mt-1 text-sm text-gray-500">Hold Ctrl/Cmd to select multiple</p>
+                        </div>
+
+                        <div>
+                            <label for="post-tags" class="block text-sm font-medium text-gray-700 mb-1">Tags</label>
+                            <input type="text" id="post-tags" name="tags" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none">
+                            <p class="mt-1 text-sm text-gray-500">Separate tags with commas</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Categories & Tags Tab Content -->
+            <div id="content-categories" class="tab-content hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Categories Section -->
+                    <div>
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-xl font-bold text-gray-900">Categories</h2>
+                            <button id="add-category" class="px-3 py-1 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-md text-sm font-semibold hover:opacity-90 transition-opacity">
+                                Add New
+                            </button>
+                        </div>
+
+                        <div class="bg-white shadow overflow-hidden sm:rounded-md">
+                            <ul id="categories-list" class="divide-y divide-gray-200">
+                                <!-- Categories will be populated by JavaScript -->
+                                <li class="px-6 py-4 flex items-center justify-between">
+                                    <div class="text-sm font-medium text-gray-900">Loading categories...</div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div id="category-form" class="mt-6 bg-white p-4 rounded-md shadow hidden">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Add Category</h3>
+                            <div class="flex space-x-2">
+                                <input type="text" id="new-category" placeholder="Category name" class="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none">
+                                <button id="save-category" class="px-4 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-md font-semibold hover:opacity-90 transition-opacity">
+                                    Save
+                                </button>
+                                <button id="cancel-category" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md font-semibold hover:bg-gray-300 transition-colors">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tags Section -->
+                    <div>
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-xl font-bold text-gray-900">Tags</h2>
+                            <button id="add-tag" class="px-3 py-1 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-md text-sm font-semibold hover:opacity-90 transition-opacity">
+                                Add New
+                            </button>
+                        </div>
+
+                        <div class="bg-white shadow overflow-hidden sm:rounded-md">
+                            <ul id="tags-list" class="divide-y divide-gray-200">
+                                <!-- Tags will be populated by JavaScript -->
+                                <li class="px-6 py-4 flex items-center justify-between">
+                                    <div class="text-sm font-medium text-gray-900">Loading tags...</div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div id="tag-form" class="mt-6 bg-white p-4 rounded-md shadow hidden">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Add Tag</h3>
+                            <div class="flex space-x-2">
+                                <input type="text" id="new-tag" placeholder="Tag name" class="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none">
+                                <button id="save-tag" class="px-4 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-md font-semibold hover:opacity-90 transition-opacity">
+                                    Save
+                                </button>
+                                <button id="cancel-tag" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md font-semibold hover:bg-gray-300 transition-colors">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Tab Content -->
+            <div id="content-settings" class="tab-content hidden">
+                <div class="flex justify-between items-center mb-6">
+                    <h1 class="text-2xl font-bold text-gray-900">Blog Settings</h1>
+                    <button id="save-settings" class="px-4 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-md font-semibold hover:opacity-90 transition-opacity">
+                        Save Settings
+                    </button>
+                </div>
+
+                <div class="bg-white shadow overflow-hidden sm:rounded-lg p-6 space-y-6">
+                    <div>
+                        <h2 class="text-lg font-medium text-gray-900 mb-4">Homepage Blog Section</h2>
+
+                        <div class="space-y-4">
+                            <div>
+                                <label for="home-blog-title" class="block text-sm font-medium text-gray-700 mb-1">Section Title</label>
+                                <input type="text" id="home-blog-title" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none" value="Latest from Our Blog">
+                            </div>
+
+                            <div>
+                                <label for="home-blog-description" class="block text-sm font-medium text-gray-700 mb-1">Section Description</label>
+                                <textarea id="home-blog-description" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none">Insights, tips, and success stories to help you on your side hustle journey</textarea>
+                            </div>
+
+                            <div>
+                                <label for="home-blog-count" class="block text-sm font-medium text-gray-700 mb-1">Number of Posts to Display</label>
+                                <select id="home-blog-count" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3" selected>3</option>
+                                    <option value="4">4</option>
+                                    <option value="6">6</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h2 class="text-lg font-medium text-gray-900 mb-4">Blog Page Settings</h2>
+
+                        <div class="space-y-4">
+                            <div>
+                                <label for="blog-page-title" class="block text-sm font-medium text-gray-700 mb-1">Page Title</label>
+                                <input type="text" id="blog-page-title" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none" value="The WeHustleIt Blog">
+                            </div>
+
+                            <div>
+                                <label for="blog-page-description" class="block text-sm font-medium text-gray-700 mb-1">Page Description</label>
+                                <textarea id="blog-page-description" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none">Stay updated with the latest trends, strategies, and success stories in the world of side hustles.</textarea>
+                            </div>
+
+                            <div>
+                                <label for="blog-posts-per-page" class="block text-sm font-medium text-gray-700 mb-1">Posts Per Page</label>
+                                <select id="blog-posts-per-page" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none">
+                                    <option value="4">4</option>
+                                    <option value="8" selected>8</option>
+                                    <option value="12">12</option>
+                                    <option value="16">16</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h2 class="text-lg font-medium text-gray-900 mb-4">SEO Settings</h2>
+
+                        <div class="space-y-4">
+                            <div>
+                                <label for="blog-meta-title" class="block text-sm font-medium text-gray-700 mb-1">Meta Title</label>
+                                <input type="text" id="blog-meta-title" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none" value="WeHustle It Blog - Side Hustle Insights">
+                            </div>
+
+                            <div>
+                                <label for="blog-meta-description" class="block text-sm font-medium text-gray-700 mb-1">Meta Description</label>
+                                <textarea id="blog-meta-description" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none">Read the latest insights, tips, and stories about side hustles and entrepreneurship on the WeHustle It blog.</textarea>
+                            </div>
+
+                            <div>
+                                <label for="blog-meta-keywords" class="block text-sm font-medium text-gray-700 mb-1">Meta Keywords</label>
+                                <input type="text" id="blog-meta-keywords" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none" value="blog, side hustle tips, entrepreneurship, small business advice, WeHustle It">
+                                <p class="mt-1 text-sm text-gray-500">Separate keywords with commas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-gray-500">
+            <p>WeHustleIt CMS &copy; 2025. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="delete-modal" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Confirm Deletion</h3>
+            <p class="text-gray-700 mb-6">Are you sure you want to delete this item? This action cannot be undone.</p>
+            <div class="flex justify-end space-x-4">
+                <button id="cancel-delete" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md font-semibold hover:bg-gray-300 transition-colors">
+                    Cancel
+                </button>
+                <button id="confirm-delete" class="px-4 py-2 bg-red-600 text-white rounded-md font-semibold hover:bg-red-700 transition-colors">
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Post Saved Modal -->
+    <div id="post-saved-modal" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Post Saved Successfully</h3>
+            <div id="github-success" class="hidden">
+                <div class="bg-green-100 text-green-800 p-4 rounded-md mb-6">
+                    <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span>Your post has been saved to GitHub and will be live on your site shortly!</span>
+                    </div>
+                </div>
+            </div>
+            <div id="github-not-configured">
+                <p class="text-gray-700 mb-6">Your post has been saved to the CMS. To make it visible on your website:</p>
+                <div class="bg-yellow-100 text-yellow-800 p-4 rounded-md mb-6">
+                    <p class="font-bold mb-2">Recommended: Set up GitHub Integration</p>
+                    <p>For automatic updates to your website, <a href="github-proxy.html" class="underline font-semibold">configure GitHub integration</a>.</p>
+                </div>
+                <p class="text-gray-700 mb-2">Or manually update your site:</p>
+                <ol class="list-decimal list-inside mb-6 space-y-2 text-gray-700">
+                    <li>Click the "Export Data" button in the top navigation</li>
+                    <li>Save the downloaded file</li>
+                    <li>Replace the contents of cms/posts/posts.json with the downloaded file</li>
+                    <li>If using a web server, upload the file to your server</li>
+                </ol>
+            </div>
+            <div class="flex justify-end">
+                <button id="close-post-saved" class="px-4 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-md font-semibold hover:opacity-90 transition-opacity">
+                    Got it
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../cms/config.js"></script>
+    <script src="../cms/github.js"></script>
+    <script src="../cms/admin.js"></script>
+</body>
+</html>

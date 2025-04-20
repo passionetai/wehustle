@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub API Proxy Setup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="font-sans bg-gray-100 min-h-screen p-8">
+    <div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+        <div class="flex items-center space-x-2 mb-6">
+            <div class="w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center font-extrabold text-white">
+                W
+            </div>
+            <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-yellow-400 tracking-tight">WeHustleIt CMS</span>
+        </div>
+
+        <h1 class="text-3xl font-bold mb-6">GitHub Integration Setup</h1>
+
+        <div class="space-y-6">
+            <section>
+                <h2 class="text-xl font-bold mb-3">Create a GitHub Personal Access Token</h2>
+                <ol class="list-decimal list-inside space-y-2 mb-4">
+                    <li>Go to <a href="https://github.com/settings/tokens" target="_blank" class="text-blue-600 hover:underline">GitHub Personal Access Tokens</a></li>
+                    <li>Click "Generate new token" and select "Generate new token (classic)"</li>
+                    <li>Give it a descriptive name like "WeHustleIt CMS"</li>
+                    <li>Select the "repo" scope to allow the token to modify your repository</li>
+                    <li>Click "Generate token" and <strong>copy the token</strong> (you won't be able to see it again)</li>
+                </ol>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-bold mb-3">Configure Your CMS</h2>
+                <p class="mb-4">Enter your GitHub information below:</p>
+
+                <form id="github-form" class="space-y-4">
+                    <div>
+                        <label for="github-username" class="block text-sm font-medium text-gray-700 mb-1">GitHub Username</label>
+                        <input type="text" id="github-username" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none">
+                    </div>
+
+                    <div>
+                        <label for="github-repo" class="block text-sm font-medium text-gray-700 mb-1">Repository Name</label>
+                        <input type="text" id="github-repo" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none" value="wehustle">
+                    </div>
+
+                    <div>
+                        <label for="github-branch" class="block text-sm font-medium text-gray-700 mb-1">Branch Name</label>
+                        <input type="text" id="github-branch" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none" value="main">
+                    </div>
+
+                    <div>
+                        <label for="github-token" class="block text-sm font-medium text-gray-700 mb-1">Personal Access Token</label>
+                        <input type="password" id="github-token" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none">
+                    </div>
+
+                    <div class="pt-4">
+                        <button type="submit" class="px-6 py-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-lg font-semibold hover:opacity-90 transition-opacity">
+                            Save Configuration
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <section id="test-section" class="hidden">
+                <h2 class="text-xl font-bold mb-3">Test Your Configuration</h2>
+                <p class="mb-4">Test your GitHub integration by clicking the button below:</p>
+
+                <div class="bg-yellow-100 text-yellow-800 p-4 rounded-md mb-4">
+                    <p class="font-bold mb-2">Important: CORS Proxy Required</p>
+                    <p class="mb-2">This CMS uses a CORS proxy (cors-anywhere.herokuapp.com) to communicate with GitHub from your local environment.</p>
+                    <p>Before testing, you may need to <a href="https://cors-anywhere.herokuapp.com/corsdemo" target="_blank" class="underline font-semibold">request temporary access</a> to the demo server.</p>
+                </div>
+
+                <button id="test-github" class="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                    Test Connection
+                </button>
+
+                <div id="test-result" class="mt-4 p-4 rounded-md hidden"></div>
+            </section>
+
+            <div class="border-t border-gray-200 pt-6 mt-6">
+                <a href="admin.html" class="inline-block px-4 py-2 bg-gray-200 text-gray-700 rounded-md font-semibold hover:bg-gray-300 transition-colors">
+                    Back to Admin Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const githubForm = document.getElementById('github-form');
+            const testSection = document.getElementById('test-section');
+            const testGithubBtn = document.getElementById('test-github');
+            const testResult = document.getElementById('test-result');
+
+            // Load saved GitHub config if available
+            const savedConfig = localStorage.getItem('github_config');
+            if (savedConfig) {
+                const config = JSON.parse(savedConfig);
+                document.getElementById('github-username').value = config.username || '';
+                document.getElementById('github-repo').value = config.repo || 'wehustle';
+                document.getElementById('github-branch').value = config.branch || 'main';
+                document.getElementById('github-token').value = config.token || '';
+
+                // Show test section if we have a saved config
+                testSection.classList.remove('hidden');
+            }
+
+            // Save GitHub config
+            githubForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const username = document.getElementById('github-username').value.trim();
+                const repo = document.getElementById('github-repo').value.trim();
+                const branch = document.getElementById('github-branch').value.trim();
+                const token = document.getElementById('github-token').value.trim();
+
+                if (!username || !repo || !branch || !token) {
+                    alert('Please fill in all fields');
+                    return;
+                }
+
+                const config = {
+                    username,
+                    repo,
+                    branch,
+                    token
+                };
+
+                localStorage.setItem('github_config', JSON.stringify(config));
+
+                alert('GitHub configuration saved successfully!');
+                testSection.classList.remove('hidden');
+            });
+
+            // Test GitHub connection
+            testGithubBtn.addEventListener('click', async () => {
+                const savedConfig = localStorage.getItem('github_config');
+                if (!savedConfig) {
+                    alert('Please save your GitHub configuration first');
+                    return;
+                }
+
+                const config = JSON.parse(savedConfig);
+
+                testResult.innerHTML = 'Testing connection...';
+                testResult.className = 'mt-4 p-4 rounded-md bg-yellow-100 text-yellow-800';
+                testResult.classList.remove('hidden');
+
+                try {
+                    // Use a CORS proxy for local development
+                    const corsProxy = 'https://cors-anywhere.herokuapp.com/';
+
+                    // Test by getting the repository info
+                    const response = await fetch(`${corsProxy}https://api.github.com/repos/${config.username}/${config.repo}`, {
+                        headers: {
+                            'Authorization': `token ${config.token}`,
+                            'X-Requested-With': 'XMLHttpRequest' // Required by CORS Anywhere
+                        }
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        testResult.innerHTML = `
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span>Connection successful! Repository: ${data.full_name}</span>
+                            </div>
+                        `;
+                        testResult.className = 'mt-4 p-4 rounded-md bg-green-100 text-green-800';
+                    } else {
+                        testResult.innerHTML = `
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                                <span>Connection failed: ${data.message}</span>
+                            </div>
+                        `;
+                        testResult.className = 'mt-4 p-4 rounded-md bg-red-100 text-red-800';
+                    }
+                } catch (error) {
+                    testResult.innerHTML = `
+                        <div class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                            <span>Error: ${error.message}</span>
+                        </div>
+                    `;
+                    testResult.className = 'mt-4 p-4 rounded-md bg-red-100 text-red-800';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

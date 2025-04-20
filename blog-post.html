@@ -19,7 +19,7 @@
     <meta property="og:title" content="WeHustle It Blog - Side Hustle Insights">
     <meta property="og:description" content="Stay updated with the latest trends, strategies, and success stories in the world of side hustles.">
     <meta property="og:type" content="website">
-    <title>Blog - WeHustle It</title>
+    <title>Blog Post - WeHustle It</title>
     <link rel="icon" type="image/png" href="images/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -53,7 +53,7 @@
                 <a href="index.html" class="font-medium text-gray-600 hover:text-gray-900 transition-colors">Home</a>
                 <a href="quiz.html" class="font-medium text-gray-600 hover:text-gray-900 transition-colors">Hustle Quiz</a>
                 <a href="calculator.html" class="font-medium text-gray-600 hover:text-gray-900 transition-colors">Calculator</a>
-                <!-- Removed Start Hustling button -->
+                <a href="blog.html" class="font-medium text-yellow-600 hover:text-yellow-700 transition-colors">Blog</a>
             </div>
 
             <button id="mobile-menu-button" class="md:hidden text-gray-600">
@@ -68,113 +68,129 @@
             <a href="index.html" class="block py-2 text-gray-700 hover:text-orange-500">Home</a>
             <a href="quiz.html" class="block py-2 text-gray-700 hover:text-orange-500">Hustle Quiz</a>
             <a href="calculator.html" class="block py-2 text-gray-700 hover:text-orange-500">Calculator</a>
-            <!-- Removed Start Hustling button -->
+            <a href="blog.html" class="block py-2 text-gray-700 hover:text-orange-500">Blog</a>
         </div>
     </nav>
 
     <!-- Main Content Area -->
     <main class="flex-grow">
-        <!-- Blog Content Section -->
+        <!-- Blog Post Content Section -->
         <section class="py-16 px-6 md:px-16 lg:px-24">
-            <div class="max-w-7xl mx-auto">
-                <h1 class="text-4xl md:text-5xl font-extrabold text-center mb-16">
-                    The <span class="gradient-text">WeHustleIt</span> Blog
-                </h1>
+            <div class="max-w-4xl mx-auto">
+                <!-- Back to Blog Link -->
+                <div class="mb-8">
+                    <a href="blog.html" class="inline-flex items-center text-yellow-600 hover:text-yellow-700 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Back to Blog
+                    </a>
+                </div>
 
-                <!-- Blog Controls -->
-                <div class="flex flex-col sm:flex-row justify-between items-center mb-8">
-                    <div class="flex items-center space-x-4 mb-4 sm:mb-0">
-                        <div class="relative">
-                            <input type="text" id="blog-search" placeholder="Search posts..." class="px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none">
-                            <button id="search-btn" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                <!-- Loading Placeholder (hidden when content loads) -->
+                <div id="post-loading" class="animate-pulse space-y-8">
+                    <div class="h-12 bg-gray-200 rounded w-3/4"></div>
+                    <div class="h-4 bg-gray-200 rounded w-1/2"></div>
+                    <div class="h-96 bg-gray-200 rounded w-full"></div>
+                    <div class="space-y-4">
+                        <div class="h-4 bg-gray-200 rounded w-full"></div>
+                        <div class="h-4 bg-gray-200 rounded w-full"></div>
+                        <div class="h-4 bg-gray-200 rounded w-3/4"></div>
+                        <div class="h-4 bg-gray-200 rounded w-full"></div>
+                        <div class="h-4 bg-gray-200 rounded w-5/6"></div>
+                    </div>
+                </div>
+
+                <!-- Post Content (populated by JavaScript) -->
+                <article id="post-container" class="hidden">
+                    <h1 id="post-title" class="text-4xl font-extrabold text-gray-900 mb-4"></h1>
+                    <div id="post-meta" class="text-sm mb-8"></div>
+                    
+                    <img id="post-image" src="" alt="" class="w-full h-auto rounded-xl mb-8 shadow-lg">
+                    
+                    <div id="post-content" class="prose prose-yellow max-w-none mb-12">
+                        <!-- Content will be populated by JavaScript -->
+                    </div>
+                    
+                    <!-- Categories and Tags -->
+                    <div class="border-t border-gray-200 pt-8 mt-8">
+                        <div class="mb-4">
+                            <h3 class="text-sm font-medium text-gray-500 mb-2">Categories:</h3>
+                            <div id="post-categories" class="flex flex-wrap">
+                                <!-- Categories will be populated by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-500 mb-2">Tags:</h3>
+                            <div id="post-tags" class="flex flex-wrap">
+                                <!-- Tags will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Share Buttons -->
+                    <div class="border-t border-gray-200 pt-8 mt-8">
+                        <h3 class="text-lg font-bold text-gray-900 mb-4">Share this post</h3>
+                        <div class="flex space-x-4">
+                            <a href="#" onclick="shareOnTwitter()" class="text-gray-400 hover:text-blue-400 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
                                 </svg>
-                            </button>
+                            </a>
+                            <a href="#" onclick="shareOnFacebook()" class="text-gray-400 hover:text-blue-600 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
+                                </svg>
+                            </a>
+                            <a href="#" onclick="shareOnLinkedIn()" class="text-gray-400 hover:text-blue-700 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                                </svg>
+                            </a>
+                            <a href="#" onclick="copyLink()" class="text-gray-400 hover:text-gray-700 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                </svg>
+                            </a>
                         </div>
-
-                        <select id="category-filter" class="px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none">
-                            <option value="">All Categories</option>
-                            <!-- Categories will be populated by JavaScript -->
-                        </select>
                     </div>
-
-                    <div class="flex items-center space-x-2">
-                        <span class="text-sm text-gray-600">Sort by:</span>
-                        <select id="sort-posts" class="px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-400 focus:outline-none">
-                            <option value="newest">Newest First</option>
-                            <option value="oldest">Oldest First</option>
-                            <option value="title">Title A-Z</option>
-                        </select>
+                </article>
+                
+                <!-- Related Posts Section -->
+                <div class="mt-16">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-8">Related Posts</h2>
+                    <div id="related-posts" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Related posts will be populated by JavaScript -->
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col card-hover animate-pulse">
+                            <div class="w-full h-48 bg-gray-200"></div>
+                            <div class="p-6 flex flex-col flex-grow space-y-3">
+                                <div class="h-6 bg-gray-200 rounded w-3/4"></div>
+                                <div class="h-4 bg-gray-200 rounded w-full"></div>
+                                <div class="h-4 bg-gray-200 rounded w-full"></div>
+                                <div class="h-4 bg-gray-200 rounded w-2/3 mt-auto"></div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col card-hover animate-pulse">
+                            <div class="w-full h-48 bg-gray-200"></div>
+                            <div class="p-6 flex flex-col flex-grow space-y-3">
+                                <div class="h-6 bg-gray-200 rounded w-3/4"></div>
+                                <div class="h-4 bg-gray-200 rounded w-full"></div>
+                                <div class="h-4 bg-gray-200 rounded w-full"></div>
+                                <div class="h-4 bg-gray-200 rounded w-2/3 mt-auto"></div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col card-hover animate-pulse">
+                            <div class="w-full h-48 bg-gray-200"></div>
+                            <div class="p-6 flex flex-col flex-grow space-y-3">
+                                <div class="h-6 bg-gray-200 rounded w-3/4"></div>
+                                <div class="h-4 bg-gray-200 rounded w-full"></div>
+                                <div class="h-4 bg-gray-200 rounded w-full"></div>
+                                <div class="h-4 bg-gray-200 rounded w-2/3 mt-auto"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <!-- Blog Post Grid -->
-                <div id="blog-posts" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <!-- Posts will be populated by JavaScript -->
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col card-hover animate-pulse">
-                        <div class="w-full h-48 bg-gray-200"></div>
-                        <div class="p-6 flex flex-col flex-grow space-y-3">
-                            <div class="h-6 bg-gray-200 rounded w-3/4"></div>
-                            <div class="h-4 bg-gray-200 rounded w-full"></div>
-                            <div class="h-4 bg-gray-200 rounded w-full"></div>
-                            <div class="h-4 bg-gray-200 rounded w-2/3 mt-auto"></div>
-                        </div>
-                    </div>
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col card-hover animate-pulse">
-                        <div class="w-full h-48 bg-gray-200"></div>
-                        <div class="p-6 flex flex-col flex-grow space-y-3">
-                            <div class="h-6 bg-gray-200 rounded w-3/4"></div>
-                            <div class="h-4 bg-gray-200 rounded w-full"></div>
-                            <div class="h-4 bg-gray-200 rounded w-full"></div>
-                            <div class="h-4 bg-gray-200 rounded w-2/3 mt-auto"></div>
-                        </div>
-                    </div>
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col card-hover animate-pulse">
-                        <div class="w-full h-48 bg-gray-200"></div>
-                        <div class="p-6 flex flex-col flex-grow space-y-3">
-                            <div class="h-6 bg-gray-200 rounded w-3/4"></div>
-                            <div class="h-4 bg-gray-200 rounded w-full"></div>
-                            <div class="h-4 bg-gray-200 rounded w-full"></div>
-                            <div class="h-4 bg-gray-200 rounded w-2/3 mt-auto"></div>
-                        </div>
-                    </div>
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col card-hover animate-pulse">
-                        <div class="w-full h-48 bg-gray-200"></div>
-                        <div class="p-6 flex flex-col flex-grow space-y-3">
-                            <div class="h-6 bg-gray-200 rounded w-3/4"></div>
-                            <div class="h-4 bg-gray-200 rounded w-full"></div>
-                            <div class="h-4 bg-gray-200 rounded w-full"></div>
-                            <div class="h-4 bg-gray-200 rounded w-2/3 mt-auto"></div>
-                        </div>
-                    </div>
-                </div> <!-- End Grid -->
-
-                <!-- Pagination -->
-                <div class="mt-12 flex justify-between items-center">
-                    <button id="prev-page" class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
-                        Previous
-                    </button>
-                    <span id="page-info" class="text-sm text-gray-700">
-                        Page <span id="current-page">1</span> of <span id="total-pages">1</span>
-                    </span>
-                    <button id="next-page" class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
-                        Next
-                    </button>
-                </div>
-
-                <!-- No Results Message -->
-                <div id="no-results" class="hidden text-center py-12">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <h3 class="text-xl font-bold text-gray-700 mb-2">No posts found</h3>
-                    <p class="text-gray-500 mb-6">Try adjusting your search or filter criteria</p>
-                    <button id="reset-filters" class="px-6 py-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-lg font-semibold hover:opacity-90 transition-opacity">
-                        Reset Filters
-                    </button>
-                </div>
-
             </div>
         </section>
     </main>
@@ -255,5 +271,50 @@
 
     <!-- Scripts -->
     <script src="newjs.js"></script>
+    <script>
+        // Social sharing functions
+        function shareOnTwitter() {
+            const title = document.getElementById('post-title').textContent;
+            const url = window.location.href;
+            const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`;
+            window.open(twitterUrl, '_blank');
+        }
+        
+        function shareOnFacebook() {
+            const url = window.location.href;
+            const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+            window.open(facebookUrl, '_blank');
+        }
+        
+        function shareOnLinkedIn() {
+            const title = document.getElementById('post-title').textContent;
+            const url = window.location.href;
+            const linkedInUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`;
+            window.open(linkedInUrl, '_blank');
+        }
+        
+        function copyLink() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                alert('Link copied to clipboard!');
+            }).catch(err => {
+                console.error('Could not copy text: ', err);
+            });
+        }
+        
+        // Show post content and hide loading placeholder
+        document.addEventListener('DOMContentLoaded', () => {
+            // This will be handled by blog.js, but we'll add a fallback
+            setTimeout(() => {
+                const postLoading = document.getElementById('post-loading');
+                const postContainer = document.getElementById('post-container');
+                
+                if (postLoading && postContainer && postLoading.style.display !== 'none') {
+                    postLoading.style.display = 'none';
+                    postContainer.classList.remove('hidden');
+                }
+            }, 2000);
+        });
+    </script>
 </body>
 </html>

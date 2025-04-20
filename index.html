@@ -9,7 +9,7 @@
       gtag('js', new Date());
       gtag('config', 'G-TYJWE3HYBY');
     </script>
-    
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Find your perfect side hustle with WeHustle It - Discover local business opportunities and start earning today">
@@ -26,7 +26,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <link rel="stylesheet" href="newstyles.css">
-    
+
 </head>
 <body class="font-sans bg-gradient-to-br from-gray-50 to-white min-h-screen">
     <!-- Gradient background blob -->
@@ -45,11 +45,12 @@
                 </div>
                 <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-yellow-400 tracking-tight">WeHustleIt</span>
             </div>
-            
+
             <div class="hidden md:flex items-center space-x-8">
                 <a href="newindex.html" class="font-medium text-gray-600 hover:text-gray-900 transition-colors">Home</a>
                 <a href="quiz.html" class="font-medium text-gray-600 hover:text-gray-900 transition-colors">Hustle Quiz</a>
                 <a href="calculator.html" class="font-medium text-gray-600 hover:text-gray-900 transition-colors">Calculator</a>
+                <a href="blog.html" class="font-medium text-gray-600 hover:text-gray-900 transition-colors">Blog</a>
                 <button id="start-hustling-btn-desktop" class="px-4 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-lg font-semibold hover:opacity-90 transition-opacity flex items-center space-x-1">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -57,19 +58,20 @@
                     <span class="hidden sm:inline">Start Hustling</span>
                 </button>
             </div>
-            
+
             <button id="mobile-menu-button" class="md:hidden text-gray-600">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
             </button>
         </div>
-        
+
         <!-- Mobile menu -->
         <div id="mobile-menu" class="hidden md:hidden py-2 px-6 bg-white border-t">
             <a href="newindex.html" class="block py-2 text-gray-700 hover:text-orange-500">Home</a>
             <a href="quiz.html" class="block py-2 text-gray-700 hover:text-orange-500">Hustle Quiz</a>
             <a href="calculator.html" class="block py-2 text-gray-700 hover:text-orange-500">Calculator</a>
+            <a href="blog.html" class="block py-2 text-gray-700 hover:text-orange-500">Blog</a>
             <button id="start-hustling-btn-mobile" class="w-full mt-2 px-4 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-lg font-semibold">
                 Start Hustling
             </button>
@@ -101,17 +103,17 @@
             <p class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mt-2.5">
                 Discover 1000+ unique ways to make money based on your city or passion. Get personalized recommendations instantly.
             </p>
-            
+
             <!-- Search Box -->
             <div class="max-w-2xl mx-auto mt-10 relative shadow-xl rounded-xl overflow-hidden">
                 <div class="relative">
-                    <input 
-                        type="text" 
-                        id="city-input" 
+                    <input
+                        type="text"
+                        id="city-input"
                         placeholder="Enter city or passion (e.g., 'New York', 'photography')..."
                         class="w-full py-5 px-6 pr-20 rounded-xl border-0 focus:ring-2 focus:ring-yellow-400 focus:outline-none text-gray-700"
                     >
-                    <button 
+                    <button
                         id="get-hustle-btn"
                         class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-8 py-2 rounded-lg font-bold hover:opacity-90 transition-opacity"
                     >
@@ -119,9 +121,9 @@
                     </button>
                 </div>
             </div>
-            
+
             <p class="text-gray-500 text-sm">Examples: New York, London, Photography, Writing, Pet Sitting</p>
-            
+
             <div class="pt-8 flex justify-center space-x-4">
                 <button class="flex items-center space-x-1 text-gray-700 hover:text-gray-900 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -137,7 +139,7 @@
                 </a>
             </div>
         </div>
-        
+
         <!-- Floating illustration -->
         <div class="absolute right-20 top-1/4 hidden xl:block transform -rotate-12">
             <div class="relative">
@@ -166,7 +168,7 @@
             <p class="text-gray-600 text-center max-w-2xl mx-auto mb-12">
                 Our platform matches you with the perfect side hustle based on your city, skills, and market demand.
             </p>
-            
+
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- Step 1 -->
                 <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col items-center text-center">
@@ -183,7 +185,7 @@
                         Enter your location and we'll analyze local market demand to find the best opportunities.
                     </p>
                 </div>
-                
+
                 <!-- Step 2 -->
                 <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col items-center text-center">
                     <div class="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-6 text-blue-600 relative">
@@ -199,7 +201,7 @@
                         We generate unique, profitable ideas tailored to your local market and current demand.
                     </p>
                 </div>
-                
+
                 <!-- Step 3 -->
                 <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col items-center text-center">
                     <div class="w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center mb-6 text-purple-600 relative">
@@ -232,7 +234,7 @@
                     Click any city to instantly generate unique hustle opportunities in that location
                 </p>
             </div>
-            
+
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                 <!-- City Buttons -->
                 <button class="city-btn bg-white hover:bg-gray-100 text-gray-800 font-medium py-3 px-4 rounded-lg border border-gray-200 hover:border-gray-300 transition-colors shadow-sm hover:shadow-md">
@@ -286,7 +288,7 @@
                     Hear from people who turned their side hustle into real income
                 </p>
             </div>
-            
+
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Testimonial 1 -->
                 <div class="bg-white p-8 rounded-xl shadow-lg">
@@ -320,7 +322,7 @@
                         </svg>
                     </div>
                 </div>
-                
+
                 <!-- Testimonial 2 -->
                 <div class="bg-white p-8 rounded-xl shadow-lg">
                     <div class="flex items-center mb-6">
@@ -353,7 +355,7 @@
                         </svg>
                     </div>
                 </div>
-                
+
                 <!-- Testimonial 3 -->
                 <div class="bg-white p-8 rounded-xl shadow-lg">
                     <div class="flex items-center mb-6">
@@ -386,6 +388,57 @@
                         </svg>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="py-16 px-6 md:px-16 lg:px-24 bg-white scroll-animate fade-in-up">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-4 blog-section-title">
+                    Latest from Our <span class="gradient-text">Blog</span>
+                </h2>
+                <p class="text-gray-600 max-w-2xl mx-auto blog-section-description">
+                    Insights, tips, and success stories to help you on your side hustle journey
+                </p>
+            </div>
+
+            <div id="home-blog-posts" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Blog posts will be loaded dynamically -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col card-hover animate-pulse">
+                    <div class="w-full h-48 bg-gray-200"></div>
+                    <div class="p-6 flex flex-col flex-grow space-y-3">
+                        <div class="h-6 bg-gray-200 rounded w-3/4"></div>
+                        <div class="h-4 bg-gray-200 rounded w-full"></div>
+                        <div class="h-4 bg-gray-200 rounded w-full"></div>
+                        <div class="h-4 bg-gray-200 rounded w-2/3 mt-auto"></div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col card-hover animate-pulse">
+                    <div class="w-full h-48 bg-gray-200"></div>
+                    <div class="p-6 flex flex-col flex-grow space-y-3">
+                        <div class="h-6 bg-gray-200 rounded w-3/4"></div>
+                        <div class="h-4 bg-gray-200 rounded w-full"></div>
+                        <div class="h-4 bg-gray-200 rounded w-full"></div>
+                        <div class="h-4 bg-gray-200 rounded w-2/3 mt-auto"></div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col card-hover animate-pulse">
+                    <div class="w-full h-48 bg-gray-200"></div>
+                    <div class="p-6 flex flex-col flex-grow space-y-3">
+                        <div class="h-6 bg-gray-200 rounded w-3/4"></div>
+                        <div class="h-4 bg-gray-200 rounded w-full"></div>
+                        <div class="h-4 bg-gray-200 rounded w-full"></div>
+                        <div class="h-4 bg-gray-200 rounded w-2/3 mt-auto"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-10">
+                <a href="blog.html" class="inline-block px-6 py-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-lg font-semibold hover:opacity-90 transition-opacity">
+                    View All Blog Posts
+                </a>
             </div>
         </div>
     </section>
@@ -469,7 +522,7 @@
         <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-12">
             Frequently Asked <span class="gradient-text">Questions</span>
         </h2>
-        
+
         <div class="space-y-4">
             <!-- FAQ Item 1 -->
             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
@@ -483,7 +536,7 @@
                     <p>We analyze local market data, consumer demand, and successful business models in your area to generate personalized side hustle ideas. Our algorithm considers factors like population density, income levels, competition, and emerging trends to recommend opportunities with high potential in your specific location.</p>
                 </div>
             </div>
-            
+
             <!-- FAQ Item 2 -->
             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                 <button class="faq-toggle w-full flex justify-between items-center text-left">
@@ -496,7 +549,7 @@
                     <p>Many of our recommended side hustles require no special skills to get started. We provide difficulty ratings for each opportunity along with resources to help you learn what you need. Some hustles may require specific skills, but we always include options suitable for beginners.</p>
                 </div>
             </div>
-            
+
             <!-- FAQ Item 3 -->
             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                 <button class="faq-toggle w-full flex justify-between items-center text-left">
@@ -509,7 +562,7 @@
                     <p>Earnings vary based on the hustle type, your time investment, and local demand. Most of our users report earning between $500-$3,000 per month from their side hustles. Each recommendation includes estimated earning potential based on real user data from your area.</p>
                 </div>
             </div>
-            
+
             <!-- FAQ Item 4 -->
             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                 <button class="faq-toggle w-full flex justify-between items-center text-left">
@@ -557,7 +610,7 @@
                 </a>
             </div>
         </div>
-        
+
         <div>
             <h3 class="font-bold text-lg mb-4">Company</h3>
             <ul class="space-y-2">
@@ -567,7 +620,7 @@
                 <li><a href="press.html" class="text-gray-400 hover:text-white transition-colors">Press</a></li>
             </ul>
         </div>
-        
+
         <div>
             <h3 class="font-bold text-lg mb-4">Resources</h3>
             <ul class="space-y-2">
@@ -575,7 +628,7 @@
                 <li><a href="webinar.html" class="text-gray-400 hover:text-white transition-colors">Webinars</a></li>
             </ul>
         </div>
-        
+
         <div>
             <h3 class="font-bold text-lg mb-4">Legal</h3>
             <ul class="space-y-2">
@@ -585,7 +638,7 @@
             </ul>
         </div>
     </div>
-    
+
     <div class="max-w-6xl mx-auto pt-8 mt-8 border-t border-gray-800 text-center text-gray-400 text-sm">
         <p>© 2025 WeHustleIt. All rights reserved.</p>
     </div>
@@ -599,8 +652,10 @@
 </button>
 
 <!-- Scripts -->
-</body> </html> 
+</body> </html>
 
 
 
 <script src="newjs.js"></script>
+<script src="cms/config.js"></script>
+<script src="cms/home-blog.js"></script>
