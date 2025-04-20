@@ -94,7 +94,7 @@ async function loadHomeBlogPosts() {
                     </div>
                     <h3 class="text-xl font-bold mb-2 text-gray-800">${post.title}</h3>
                     <p class="text-gray-600 text-sm mb-4 flex-grow">${post.excerpt}</p>
-                    <a href="blog-post.html?id=${post.id}" class="mt-auto text-yellow-600 hover:text-orange-500 font-semibold text-sm">Read More &rarr;</a>
+                    <a href="blog/${post.slug}.html" class="mt-auto text-yellow-600 hover:text-orange-500 font-semibold text-sm">Read More &rarr;</a>
                 </div>
             `;
 

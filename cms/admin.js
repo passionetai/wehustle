@@ -567,6 +567,21 @@ async function savePost() {
     // Save data locally
     await saveData();
 
+    // Generate permalink for the post
+    if (typeof generatePermalink === 'function') {
+        try {
+            await generatePermalink(post);
+            console.log('Permalink generated for post:', post.title);
+
+            // Update permalinks list if visible
+            if (document.getElementById('content-settings').classList.contains('hidden') === false) {
+                updatePermalinksList();
+            }
+        } catch (error) {
+            console.error('Error generating permalink:', error);
+        }
+    }
+
     // Show the post saved modal
     const postSavedModal = document.getElementById('post-saved-modal');
     const githubSuccess = document.getElementById('github-success');
@@ -995,6 +1010,135 @@ document.addEventListener('DOMContentLoaded', () => {
     if (saveSettingsBtn) {
         saveSettingsBtn.addEventListener('click', saveSettings);
     }
+
+    // Permalink Management
+    const generateAllPermalinksBtn = document.getElementById('generate-all-permalinks');
+    const downloadAllPermalinksBtn = document.getElementById('download-all-permalinks');
+    const permalinksContainer = document.getElementById('permalinks-container');
+    const permalinksCount = document.getElementById('permalinks-count');
+
+    // Function to update the permalinks list
+    function updatePermalinksList() {
+        if (!permalinksContainer || !permalinksCount) return;
+
+        const permalinks = JSON.parse(localStorage.getItem('blog_permalinks') || '{}');
+        const permalinkSlugs = Object.keys(permalinks);
+
+        // Update count
+        permalinksCount.textContent = `${permalinkSlugs.length} permalink${permalinkSlugs.length !== 1 ? 's' : ''}`;
+
+        // Update list
+        if (permalinkSlugs.length === 0) {
+            permalinksContainer.innerHTML = `
+                <div class="px-4 py-3 text-sm text-gray-500 text-center">
+                    No permalinks generated yet. Click "Generate All Permalinks" to create them.
+                </div>
+            `;
+            return;
+        }
+
+        // Sort permalinks by date (newest first)
+        permalinkSlugs.sort((a, b) => {
+            const dateA = new Date(permalinks[a].date);
+            const dateB = new Date(permalinks[b].date);
+            return dateB - dateA;
+        });
+
+        // Create list items
+        permalinksContainer.innerHTML = '';
+
+        permalinkSlugs.forEach(slug => {
+            const permalink = permalinks[slug];
+            const date = new Date(permalink.date);
+            const formattedDate = date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+
+            const item = document.createElement('div');
+            item.className = 'px-4 py-3 flex justify-between items-center hover:bg-gray-50';
+            item.innerHTML = `
+                <div>
+                    <div class="text-sm font-medium text-gray-900">${permalink.title}</div>
+                    <div class="text-xs text-gray-500">${formattedDate} - ${permalink.path}</div>
+                </div>
+                <button class="download-permalink-btn px-3 py-1 bg-blue-100 text-blue-700 rounded-md text-xs hover:bg-blue-200 transition-colors" data-slug="${slug}">
+                    Download
+                </button>
+            `;
+
+            permalinksContainer.appendChild(item);
+        });
+
+        // Add event listeners to download buttons
+        document.querySelectorAll('.download-permalink-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const slug = btn.getAttribute('data-slug');
+                if (typeof downloadPermalink === 'function') {
+                    downloadPermalink(slug);
+                }
+            });
+        });
+    }
+
+    // Generate All Permalinks button
+    if (generateAllPermalinksBtn) {
+        generateAllPermalinksBtn.addEventListener('click', async () => {
+            if (typeof generateAllPermalinks === 'function') {
+                generateAllPermalinksBtn.disabled = true;
+                generateAllPermalinksBtn.textContent = 'Generating...';
+
+                try {
+                    const result = await generateAllPermalinks();
+                    if (result) {
+                        alert('All permalinks generated successfully!');
+                        updatePermalinksList();
+                    } else {
+                        alert('Some permalinks failed to generate. Check the console for details.');
+                    }
+                } catch (error) {
+                    console.error('Error generating permalinks:', error);
+                    alert('Error generating permalinks. Check the console for details.');
+                } finally {
+                    generateAllPermalinksBtn.disabled = false;
+                    generateAllPermalinksBtn.textContent = 'Generate All Permalinks';
+                }
+            } else {
+                alert('Permalink generator not available.');
+            }
+        });
+    }
+
+    // Download All Permalinks button
+    if (downloadAllPermalinksBtn) {
+        downloadAllPermalinksBtn.addEventListener('click', async () => {
+            if (typeof downloadAllPermalinks === 'function') {
+                downloadAllPermalinksBtn.disabled = true;
+                downloadAllPermalinksBtn.textContent = 'Downloading...';
+
+                try {
+                    const result = await downloadAllPermalinks();
+                    if (!result) {
+                        alert('No permalinks to download. Generate permalinks first.');
+                    }
+                } catch (error) {
+                    console.error('Error downloading permalinks:', error);
+                    alert('Error downloading permalinks. Check the console for details.');
+                } finally {
+                    downloadAllPermalinksBtn.disabled = false;
+                    downloadAllPermalinksBtn.textContent = 'Download All as ZIP';
+                }
+            } else {
+                alert('Permalink downloader not available.');
+            }
+        });
+    }
+
+    // Update permalinks list when settings tab is shown
+    tabSettings.addEventListener('click', () => {
+        updatePermalinksList();
+    });
 
     // Post Saved Modal
     const closePostSavedBtn = document.getElementById('close-post-saved');

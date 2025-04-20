@@ -1,0 +1,243 @@
+// WeHustleIt Blog Post JavaScript
+
+// Function to get URL parameters
+function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    const results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+}
+
+// Function to load a single blog post
+async function loadBlogPost() {
+    // Get post slug from URL
+    const postSlug = getUrlParameter('slug');
+    
+    if (!postSlug) {
+        showError('Post not found. Invalid URL.');
+        return;
+    }
+    
+    try {
+        // Get blog posts data
+        let data;
+        
+        // First try to get from localStorage (most recent data)
+        const backupData = localStorage.getItem('cms_data_backup');
+        
+        if (backupData) {
+            data = JSON.parse(backupData);
+            console.log('Using data from localStorage for blog post');
+        } else {
+            try {
+                // If no localStorage data, try to fetch from file
+                const response = await fetch('cms/posts/posts.json');
+                data = await response.json();
+                console.log('Using data from file for blog post');
+            } catch (error) {
+                console.error('Could not fetch data from file:', error);
+                throw new Error('No blog data available');
+            }
+        }
+        
+        // Find the post by slug
+        const post = data.posts.find(p => p.slug === postSlug);
+        
+        if (!post) {
+            showError('Post not found.');
+            return;
+        }
+        
+        // Update page title and meta tags
+        updateMetaTags(post);
+        
+        // Render the post
+        renderBlogPost(post);
+        
+        // Load related posts
+        loadRelatedPosts(post, data.posts);
+        
+        // Hide loading state
+        hideLoading();
+    } catch (error) {
+        console.error('Error loading blog post:', error);
+        showError('Failed to load blog post. Please try again later.');
+    }
+}
+
+// Function to update meta tags
+function updateMetaTags(post) {
+    // Update page title
+    document.title = `${post.title} - WeHustle It Blog`;
+    
+    // Update meta tags
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+        metaDescription.setAttribute('content', post.excerpt);
+    }
+    
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) {
+        ogTitle.setAttribute('content', `${post.title} - WeHustle It Blog`);
+    }
+    
+    const ogDescription = document.querySelector('meta[property="og:description"]');
+    if (ogDescription) {
+        ogDescription.setAttribute('content', post.excerpt);
+    }
+}
+
+// Function to render a blog post
+function renderBlogPost(post) {
+    const postTitle = document.getElementById('post-title');
+    const postMeta = document.getElementById('post-meta');
+    const postImage = document.getElementById('post-image');
+    const postContent = document.getElementById('post-content');
+    const postCategories = document.getElementById('post-categories');
+    const postTags = document.getElementById('post-tags');
+    
+    if (!postTitle || !postMeta || !postImage || !postContent) {
+        return;
+    }
+    
+    // Format date
+    const date = new Date(post.date);
+    const formattedDate = date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+    
+    // Update elements
+    postTitle.textContent = post.title;
+    
+    postMeta.innerHTML = `
+        <span class="text-gray-600">${formattedDate}</span>
+        <span class="mx-2 text-gray-400">•</span>
+        <span class="text-gray-600">By ${post.author}</span>
+    `;
+    
+    postImage.src = post.image;
+    postImage.alt = post.title;
+    
+    postContent.innerHTML = post.content;
+    
+    // Render categories
+    if (postCategories) {
+        postCategories.innerHTML = '';
+        post.categories.forEach(category => {
+            const link = document.createElement('a');
+            link.href = `blog.html?category=${encodeURIComponent(category)}`;
+            link.className = 'inline-block bg-yellow-100 text-yellow-800 rounded-full px-3 py-1 text-sm font-medium mr-2 mb-2';
+            link.textContent = category;
+            postCategories.appendChild(link);
+        });
+    }
+    
+    // Render tags
+    if (postTags) {
+        postTags.innerHTML = '';
+        post.tags.forEach(tag => {
+            const link = document.createElement('a');
+            link.href = `blog.html?tag=${encodeURIComponent(tag)}`;
+            link.className = 'inline-block bg-gray-100 text-gray-800 rounded-full px-3 py-1 text-sm font-medium mr-2 mb-2';
+            link.textContent = tag;
+            postTags.appendChild(link);
+        });
+    }
+}
+
+// Function to load related posts
+function loadRelatedPosts(currentPost, allPosts) {
+    const relatedPostsContainer = document.getElementById('related-posts');
+    if (!relatedPostsContainer) return;
+    
+    // Find posts with matching categories or tags
+    const relatedPosts = allPosts.filter(post => {
+        if (post.id === currentPost.id) return false; // Skip current post
+        
+        // Check for matching categories
+        const hasMatchingCategory = post.categories.some(category => 
+            currentPost.categories.includes(category)
+        );
+        
+        // Check for matching tags
+        const hasMatchingTag = post.tags.some(tag => 
+            currentPost.tags.includes(tag)
+        );
+        
+        return hasMatchingCategory || hasMatchingTag;
+    });
+    
+    // Sort by date (newest first) and take up to 3
+    relatedPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+    const postsToShow = relatedPosts.slice(0, 3);
+    
+    // Render related posts
+    relatedPostsContainer.innerHTML = '';
+    
+    if (postsToShow.length === 0) {
+        relatedPostsContainer.innerHTML = '<p class="text-gray-500 text-center">No related posts found.</p>';
+        return;
+    }
+    
+    postsToShow.forEach(post => {
+        const postElement = document.createElement('div');
+        postElement.className = 'bg-white rounded-xl shadow-lg overflow-hidden flex flex-col card-hover';
+        
+        const date = new Date(post.date);
+        const formattedDate = date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+        
+        postElement.innerHTML = `
+            <img src="${post.image}" alt="${post.title}" class="w-full h-48 object-cover">
+            <div class="p-6 flex flex-col flex-grow">
+                <div class="flex items-center text-xs text-gray-500 mb-2">
+                    <span>${formattedDate}</span>
+                    <span class="mx-2">•</span>
+                    <span>${post.categories.join(', ')}</span>
+                </div>
+                <h2 class="text-xl font-bold mb-2 text-gray-800">${post.title}</h2>
+                <p class="text-gray-600 text-sm mb-4 flex-grow">${post.excerpt}</p>
+                <a href="blog/${post.slug}.html" class="mt-auto text-yellow-600 hover:text-orange-500 font-semibold text-sm">Read More &rarr;</a>
+            </div>
+        `;
+        
+        relatedPostsContainer.appendChild(postElement);
+    });
+}
+
+// Function to show error message
+function showError(message) {
+    const postLoading = document.getElementById('post-loading');
+    const postContainer = document.getElementById('post-container');
+    const errorContainer = document.getElementById('error-container');
+    
+    if (postLoading) postLoading.classList.add('hidden');
+    if (postContainer) postContainer.classList.add('hidden');
+    
+    if (errorContainer) {
+        errorContainer.classList.remove('hidden');
+        const errorMessage = document.getElementById('error-message');
+        if (errorMessage) {
+            errorMessage.textContent = message;
+        }
+    }
+}
+
+// Function to hide loading state
+function hideLoading() {
+    const postLoading = document.getElementById('post-loading');
+    const postContainer = document.getElementById('post-container');
+    
+    if (postLoading) postLoading.classList.add('hidden');
+    if (postContainer) postContainer.classList.remove('hidden');
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    loadBlogPost();
+});

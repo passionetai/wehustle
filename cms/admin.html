@@ -300,9 +300,11 @@
             <div id="content-settings" class="tab-content hidden">
                 <div class="flex justify-between items-center mb-6">
                     <h1 class="text-2xl font-bold text-gray-900">Blog Settings</h1>
-                    <button id="save-settings" class="px-4 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-md font-semibold hover:opacity-90 transition-opacity">
-                        Save Settings
-                    </button>
+                    <div class="flex space-x-4">
+                        <button id="save-settings" class="px-4 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-md font-semibold hover:opacity-90 transition-opacity">
+                            Save Settings
+                        </button>
+                    </div>
                 </div>
 
                 <div class="bg-white shadow overflow-hidden sm:rounded-lg p-6 space-y-6">
@@ -380,6 +382,55 @@
                             </div>
                         </div>
                     </div>
+
+                    <div>
+                        <h2 class="text-lg font-medium text-gray-900 mb-4">Permalink Management</h2>
+
+                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm text-yellow-700">
+                                        Permalinks are individual HTML files for each blog post. Generate them here and upload them to your blog directory.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex space-x-4 mb-6">
+                            <button id="generate-all-permalinks" class="px-4 py-2 bg-blue-600 text-white rounded-md font-semibold hover:bg-blue-700 transition-colors">
+                                Generate All Permalinks
+                            </button>
+                            <button id="download-all-permalinks" class="px-4 py-2 bg-green-600 text-white rounded-md font-semibold hover:bg-green-700 transition-colors">
+                                Download All as ZIP
+                            </button>
+                        </div>
+
+                        <div id="permalinks-list" class="bg-white border border-gray-200 rounded-md overflow-hidden">
+                            <div class="px-4 py-3 bg-gray-50 border-b border-gray-200 flex justify-between items-center">
+                                <h3 class="text-sm font-medium text-gray-700">Generated Permalinks</h3>
+                                <span id="permalinks-count" class="text-xs text-gray-500">0 permalinks</span>
+                            </div>
+                            <div id="permalinks-container" class="divide-y divide-gray-200 max-h-64 overflow-y-auto">
+                                <div class="px-4 py-3 text-sm text-gray-500 text-center">
+                                    No permalinks generated yet. Click "Generate All Permalinks" to create them.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 text-sm text-gray-500">
+                            <p class="mb-2">After downloading permalinks:</p>
+                            <ol class="list-decimal list-inside space-y-1">
+                                <li>Extract the ZIP file</li>
+                                <li>Upload the HTML files to your <code class="bg-gray-100 px-1 py-0.5 rounded">blog/</code> directory</li>
+                                <li>Make sure your blog directory exists on your server</li>
+                            </ol>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -433,7 +484,9 @@
                     <li>Click the "Export Data" button in the top navigation</li>
                     <li>Save the downloaded file</li>
                     <li>Replace the contents of cms/posts/posts.json with the downloaded file</li>
-                    <li>If using a web server, upload the file to your server</li>
+                    <li>Go to the Settings tab and click "Generate All Permalinks"</li>
+                    <li>Download the permalink files and upload them to your blog directory</li>
+                    <li>If using a web server, upload all files to your server</li>
                 </ol>
             </div>
             <div class="flex justify-end">
@@ -447,6 +500,8 @@
     <!-- Scripts -->
     <script src="../cms/config.js"></script>
     <script src="../cms/github.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="../cms/permalink-generator.js"></script>
     <script src="../cms/admin.js"></script>
 </body>
 </html>
