@@ -12,14 +12,14 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Read the latest insights, tips, and stories about side hustles and entrepreneurship on the WeHustle It blog.">
-    <meta name="keywords" content="blog, side hustle tips, entrepreneurship, small business advice, WeHustle It">
-    <meta name="author" content="WeHustle It">
+    <meta name="description" content="{{meta_description}}">
+    <meta name="keywords" content="{{meta_keywords}}">
+    <meta name="author" content="{{author}}">
     <meta name="robots" content="index, follow">
-    <meta property="og:title" content="WeHustle It Blog - Side Hustle Insights">
-    <meta property="og:description" content="Stay updated with the latest trends, strategies, and success stories in the world of side hustles.">
+    <meta property="og:title" content="{{title}} - WeHustle It Blog">
+    <meta property="og:description" content="{{excerpt}}">
     <meta property="og:type" content="website">
-    <title>Blog Post - WeHustle It</title>
+    <title>{{title}} - WeHustle It</title>
     <link rel="icon" type="image/png" href="../images/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -88,60 +88,55 @@
                     </a>
                 </div>
 
-                <!-- Loading Placeholder (hidden when content loads) -->
-                <div id="post-loading" class="animate-pulse space-y-8">
-                    <div class="h-12 bg-gray-200 rounded w-3/4"></div>
-                    <div class="h-4 bg-gray-200 rounded w-1/2"></div>
-                    <div class="h-96 bg-gray-200 rounded w-full"></div>
-                    <div class="space-y-4">
-                        <div class="h-4 bg-gray-200 rounded w-full"></div>
-                        <div class="h-4 bg-gray-200 rounded w-full"></div>
-                        <div class="h-4 bg-gray-200 rounded w-3/4"></div>
-                        <div class="h-4 bg-gray-200 rounded w-full"></div>
-                        <div class="h-4 bg-gray-200 rounded w-5/6"></div>
+                <!-- Post Content -->
+                <article>
+                    <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 leading-tight">{{title}}</h1>
+                    <div class="text-sm mb-6 text-gray-600 flex items-center flex-wrap gap-2">
+                        <span class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            {{date}}
+                        </span>
+                        <span class="mx-2 text-gray-400">•</span>
+                        <span class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                            By {{author}}
+                        </span>
+                        <span class="mx-2 text-gray-400">•</span>
+                        <span class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            {{read_time}} min read
+                        </span>
                     </div>
-                </div>
-
-                <!-- Error Container -->
-                <div id="error-container" class="hidden text-center py-12">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                    </svg>
-                    <h3 class="text-xl font-bold text-gray-700 mb-2">Oops! Something went wrong</h3>
-                    <p id="error-message" class="text-gray-500 mb-6">Unable to load the blog post.</p>
-                    <a href="../blog.html" class="px-6 py-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-lg font-semibold hover:opacity-90 transition-opacity">
-                        Return to Blog
-                    </a>
-                </div>
-
-                <!-- Post Content (populated by JavaScript) -->
-                <article id="post-container" class="hidden">
-                    <h1 id="post-title" class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 leading-tight"></h1>
-                    <div id="post-meta" class="text-sm mb-6 text-gray-600 flex items-center flex-wrap gap-2"></div>
-
-                    <img id="post-image" src="" alt="" class="w-full h-auto rounded-xl mb-8 shadow-lg object-cover max-h-[500px]">
-
-                    <div id="post-content" class="prose prose-yellow max-w-none mb-12">
-                        <!-- Content will be populated by JavaScript -->
+                    
+                    <img src="{{image}}" alt="{{title}}" class="w-full h-auto rounded-xl mb-8 shadow-lg object-cover max-h-[500px]">
+                    
+                    <div class="prose prose-yellow max-w-none mb-12 blog-content">
+                        {{content}}
                     </div>
-
+                    
                     <!-- Categories and Tags -->
                     <div class="border-t border-gray-200 pt-8 mt-8">
                         <div class="mb-4">
                             <h3 class="text-sm font-medium text-gray-500 mb-2">Categories:</h3>
-                            <div id="post-categories" class="flex flex-wrap">
-                                <!-- Categories will be populated by JavaScript -->
+                            <div class="flex flex-wrap">
+                                {{categories}}
                             </div>
                         </div>
-
+                        
                         <div>
                             <h3 class="text-sm font-medium text-gray-500 mb-2">Tags:</h3>
-                            <div id="post-tags" class="flex flex-wrap">
-                                <!-- Tags will be populated by JavaScript -->
+                            <div class="flex flex-wrap">
+                                {{tags}}
                             </div>
                         </div>
                     </div>
-
+                    
                     <!-- Share Buttons -->
                     <div class="border-t border-gray-200 pt-8 mt-8">
                         <h3 class="text-lg font-bold text-gray-900 mb-4">Share this post</h3>
@@ -169,39 +164,12 @@
                         </div>
                     </div>
                 </article>
-
+                
                 <!-- Related Posts Section -->
                 <div class="mt-16">
                     <h2 class="text-2xl font-bold text-gray-900 mb-8">Related Posts</h2>
-                    <div id="related-posts" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <!-- Related posts will be populated by JavaScript -->
-                        <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col card-hover animate-pulse">
-                            <div class="w-full h-48 bg-gray-200"></div>
-                            <div class="p-6 flex flex-col flex-grow space-y-3">
-                                <div class="h-6 bg-gray-200 rounded w-3/4"></div>
-                                <div class="h-4 bg-gray-200 rounded w-full"></div>
-                                <div class="h-4 bg-gray-200 rounded w-full"></div>
-                                <div class="h-4 bg-gray-200 rounded w-2/3 mt-auto"></div>
-                            </div>
-                        </div>
-                        <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col card-hover animate-pulse">
-                            <div class="w-full h-48 bg-gray-200"></div>
-                            <div class="p-6 flex flex-col flex-grow space-y-3">
-                                <div class="h-6 bg-gray-200 rounded w-3/4"></div>
-                                <div class="h-4 bg-gray-200 rounded w-full"></div>
-                                <div class="h-4 bg-gray-200 rounded w-full"></div>
-                                <div class="h-4 bg-gray-200 rounded w-2/3 mt-auto"></div>
-                            </div>
-                        </div>
-                        <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col card-hover animate-pulse">
-                            <div class="w-full h-48 bg-gray-200"></div>
-                            <div class="p-6 flex flex-col flex-grow space-y-3">
-                                <div class="h-6 bg-gray-200 rounded w-3/4"></div>
-                                <div class="h-4 bg-gray-200 rounded w-full"></div>
-                                <div class="h-4 bg-gray-200 rounded w-full"></div>
-                                <div class="h-4 bg-gray-200 rounded w-2/3 mt-auto"></div>
-                            </div>
-                        </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {{related_posts}}
                     </div>
                 </div>
             </div>
@@ -287,25 +255,25 @@
     <script>
         // Social sharing functions
         function shareOnTwitter() {
-            const title = document.getElementById('post-title').textContent;
+            const title = document.title;
             const url = window.location.href;
             const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`;
             window.open(twitterUrl, '_blank');
         }
-
+        
         function shareOnFacebook() {
             const url = window.location.href;
             const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
             window.open(facebookUrl, '_blank');
         }
-
+        
         function shareOnLinkedIn() {
-            const title = document.getElementById('post-title').textContent;
+            const title = document.title;
             const url = window.location.href;
             const linkedInUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`;
             window.open(linkedInUrl, '_blank');
         }
-
+        
         function copyLink() {
             const url = window.location.href;
             navigator.clipboard.writeText(url).then(() => {
